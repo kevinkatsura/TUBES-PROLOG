@@ -1,7 +1,5 @@
-:-dynamic(input/1).
 /*      MEMASUKI PERMAINAN      */
-input(_).
-start   :- input(X),X=\=1,C=1,asserta(input(C)),read(X),action(X).
+start   :- legenda,read(X),action(X).
 /* LEGENDA */
 legenda:-   corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,legenda9,corner(100).
             
@@ -74,19 +72,22 @@ corner(1):- write(*),nl.
 /*          PERINTAH MENURUT LEGENDA        */
 
 /*  START   */
-play   :-   write('Welcome to Genshin Asik. Choose your job'),nl,
+play    :-  write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. 2. Archer'),nl,
-            write('3. Sorcerer'),
-
+            write('3. Sorcerer').
+map     :-  open('logkom.txt',read,Str),
+            read(Str,House1),
+            close(Str),
+            write(House1).
 action(X):- X=:=1,play.
-action(X):- X=:=2,
-action(X):- X=:=3,
-action(X):- X=:=4,
-action(X):- X=:=5,
-action(X):- X=:=6,
-action(X):- X=:=7,
-action(X):- X=:=8,
+action(X):- X=:=2,map. 
+action(X):- X=:=3.
+action(X):- X=:=4.
+action(X):- X=:=5.
+action(X):- X=:=6.
+action(X):- X=:=7.
+action(X):- X=:=8.
 
 
 /*  MAP */
