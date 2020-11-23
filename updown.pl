@@ -7,52 +7,67 @@
 :-dynamic(defense/1).
 :-dynamic(health/1).
 :-dynamic(batasExp/1).
+:-dynamic(batasHP/1).
 job(swordsman).
 exp(0).
 attack(100).
 defense(80).
 level(1).
 gold(1000).
+health(1000).
+batasHP(1000).
 
 maxExp:-	job(swordsman),
 		level(4),!,
-		asserta(batasExp(750)).
+		asserta(batasExp(750)),
+		asserta(batasHP(1500)).
 maxExp:-	job(swordsman),
 		level(3),!,
-		asserta(batasExp(600)).
+		asserta(batasExp(600)),
+		asserta(batasHP(1350)).
 maxExp:-	job(swordsman),
 		level(2),!,
-		asserta(batasExp(450)).
+		asserta(batasExp(450)),
+		asserta(batasHP(1200)).
 maxExp:-	job(swordsman),
 		level(1),!,
-		asserta(batasExp(300)).
+		asserta(batasExp(300)),
+		asserta(batasHP(1000)).
 
 
 maxExp:-	job(archer),
 		level(4),!,
-		asserta(batasExp(600)).
+		asserta(batasExp(600)),
+		asserta(batasHP(1300)).
 maxExp:-	job(archer),
 		level(3),!,
-		asserta(batasExp(500)).
+		asserta(batasExp(500)),
+		asserta(batasHP(1250)).
 maxExp:-	job(archer),
 		level(2),!,
-		asserta(batasExp(400)).
+		asserta(batasExp(400)),
+		asserta(batasHP(1100)).
 maxExp:-	job(archer),
 		level(1),!,
-		asserta(batasExp(250)).
+		asserta(batasExp(250)),
+		asserta(batasHP(1000)).
 
 maxExp:-	job(sorcerer),
 		level(4),!,
-		asserta(batasExp(650)).
+		asserta(batasExp(650)),
+		asserta(batasHP(1300)).
 maxExp:-	job(sorcerer),
 		level(3),!,
-		asserta(batasExp(500)).
+		asserta(batasExp(500)),
+		asserta(batasHP(1200)).
 maxExp:-	job(sorcerer),
 		level(2),!,
-		asserta(batasExp(350)).
+		asserta(batasExp(350)),
+		asserta(batasHP(1100)).
 maxExp:-	job(sorcerer),
 		level(1),!,
-		asserta(batasExp(250)).
+		asserta(batasExp(250)),
+		asserta(batasHP(1000)).
 
 naikLevel:-	exp(Y1),!,
 		maxExp,
@@ -89,5 +104,30 @@ downHealth(X):-	health(Y),
 		asserta(health(Y1)).
 
 
+status:-	write('Your Status'),nl,
+		maxExp,
+		job(Q),
+		level(S),
+		health(T),
+		attack(U),
+		defense(V),
+		exp(W),
+		gold(X),
+		batasHP(Z),
+		batasExp(Y),
+		write('Job: '),
+		write(Q),nl,
+		write('Level: '),
+		write(S),nl,
+		write('Health: '),
+		write(T),write('/'),write(Z),nl,
+		write('Attack: '),
+		write(U),nl,
+		write('Defense: '),
+		write(V),nl,
+		write('Exp: '),
+		write(W),write('/'),write(Y),nl,
+		write('Gold: '), write(X),nl. 
+		
 
 			
