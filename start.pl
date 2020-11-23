@@ -1,5 +1,3 @@
-:-dynamic(job/1).
-
 /*************************** MEMASUKI PERMAINAN ***************************/
 start   :-  write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
             write('U /"___|u | ___"|/| \\ |"|  / __"| u | | | |     ___     | \\ |"|  '),nl,
@@ -9,7 +7,7 @@ start   :-  write('   ____  U _____ u _   _    ____     _   _               _   
             write('  _)(|_   <<   >> ||   \\,-.)(  (__)//   \\.-,_|___|_,-.||   \\,-. '),nl,
             write('(__)__) (__) (__)(_")  (_/(__)    (_") ("_)\\_)-\' \'-(_/ (_")  (_/  '),nl,nl,
             write('Good isekai game!!'),nl,nl,
-            write('Let\'s play and be a programmer'),nl,nl,
+            write('Let\'s play and be a programmer'),nl,nl,asserta(isStart),
             legenda.
 
 /* LEGENDA */
@@ -84,7 +82,8 @@ corner(1):- write('%'),nl.
 /*          PERINTAH MENURUT LEGENDA        */
 
 /* PLAY GAME */ 
-play   :-   write('Welcome to Genshin Asik. Choose your job'),nl,
+play   :-   isStart, asserta(isPlay),
+            write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,
             write('3. Sorcerer'),nl,

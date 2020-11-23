@@ -1,9 +1,10 @@
 /************************ TRANSAKSI DI SHOP ************************/
-:-dynamic(gold/1).
 :-dynamic(count/2).
+:-dynamic(isShop/0).
+:-dynamic(amount/1).
 
-gold(1100). /*Jumlah uang awal*/
 /*Inventory awal*/
+amount(6).
 count('Wooden Sword (Swordsman)',1).
 count('Wooden Bow (Archer)',1).
 count('Magic Book (Sorcerer)',1).
@@ -16,24 +17,41 @@ count('Fire Arrow (Archer)',0).
 count('Magic Wand (Sorcerer)',0).
 
 /*Menampilkan pilihan transaksi*/
-shop:- 	write('What do you want to buy?'),nl,
+shop:- 	isPlay,
+		write('What do you want to buy?'),nl,
 		write('1. Gacha (1000 gold)'),nl,
-		write('2. Health Potion (100 gold)'),nl.
+		write('2. Health Potion (100 gold)'),nl,asserta(isShop).
 
 /*Melakukan pembelian item yang telah dirandom apabila uang mencukupi*/
-gacha:- gold(Y),Y<1000,
+gacha:- isShop,
+		gold(Y),Y<1000,
 		write('You don\'t have enough money.'),nl,!.
-gacha:-	gold(Y),Y>=1000,
-		random(1,6,X),
-		items(X),
-		Z is (Y-1000), asserta(gold(Z)).
+gacha:-	isShop, 
+		gold(Y),Y>=1000,beliGacha.
+
+beliGacha:- amount(A), A=100,
+			write('Your inventory is full, transaction canceled.'),nl,!.
+beliGacha:-	amount(A), A<100, 
+			random(1,6,X),
+			items(X), gold(Y),
+			Z is (Y-1000), asserta(gold(Z)),
+			B is A+1,asserta(amount(B)).
 
 /*Melakukan pembelian potion apabila uang mencukupi*/
-potion:-	gold(Y),Y<100,
+potion:-	isShop,
+			gold(Y),Y<100,
 			write('You don\'t have enough money.'),nl,!.
-potion:-	write('You get Health Potion'),
-			count('Health Potion',Y),Z is Y+1,asserta(count('Health Potion',Z)),
-			gold(X),M is (X-100), asserta(gold(M)).
+potion:-	isShop, gold(Y),Y>=100,beliPotion.			
+
+beliPotion:-	amount(A), A=100,
+				write('Your inventory is full, transaction canceled.'),nl,!.
+beliPotion:-	amount(A), A<100, 
+				write('You get Health Potion'),
+				count('Health Potion',Y),Z is Y+1,asserta(count('Health Potion',Z)),
+				gold(X),M is (X-100), asserta(gold(M)),
+				B is A+1,asserta(amount(B)).
+
+
 
 /*Menampilkan hasil gacha dan memperbaharui inventory*/
 items(X):-	X=:=1, write('You get an Iron Armor.'),nl,
@@ -50,7 +68,7 @@ items(X):-	X=:=6, write('You get a Magic Wand.'),nl,
 			count('Magic Wand (Sorcerer)',Y),Z is Y+1,asserta(count('Magic Wand (Sorcerer)',Z)).
 
 /*Keluar dari shop*/
-exitShop:- write('Thanks for coming.').
+exitShop:- isShop,write('Thanks for coming.').
 
 /*Menampilkan inventory ke layar*/
 inventory:- nl,write('Your inventory:'),nl,

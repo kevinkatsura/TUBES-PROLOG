@@ -7,141 +7,72 @@
 :- dynamic(banyakMusuh/1).
 
 
-posisiPlayer	:- 	panjangMap(Panjang),
-					lebarMap(Lebar),
-					random(1,Panjang,BarisPlayer),
-					random(1,Lebar,KolomPlayer),
-					asserta(player([BarisPlayer,KolomPlayer])).
+/* PRINT MAP  */
 
+makeMap :-  random(15,20,Panjang),
+            random(10,40,Lebar),
+            asserta(panjangMap(Panjang)),
+            asserta(lebarMap(Lebar)).
 
-/*			BUAT MUSUH 			*/
+isTopBorder(_,Y) :-  Y=:=0,!.
+isBottomBorder(_,Y) :-  panjangMap(Panjang),
+                        Y1 is Panjang+1,
+                        Y=:=Y1,!.
+isRightBorder(X,_) :- lebarMap(Lebar),
+      X1 is Lebar+1,
+      X=:=X1,!.
+isLeftBorder(X,_) :- X=:=0,!.
 
-/*	daftar musuh */
-enemy(1,slime).
-enemy(2,goblin).
-enemy(3,wolf).
-enemy(4,dungeon).
+isNotTopBorder(_,Y) :-  Y=\=0,!.
+isNotBottomBorder(_,Y) :-  panjangMap(Panjang),
+       Y1 is Panjang+1,
+       Y=\=Y1,!.
+isNotRightBorder(X,_) :- lebarMap(Lebar),
+       X1 is Lebar+1,
+       X=\=X1,!.
+isNotLeftBorder(X,_) :- X=\=0,!.
 
-/*	Fungsi	*/
-makeMusuhAwal	:-	panjangMap(Panjang),
-					lebarMap(Lebar),
-					X1 is Panjang*Lebar,
-					X2 is X1/2,
-					random(1,X2,Number),
-					asserta(banyakMusuh(Number)).
-					createEnemy(Number).
+initialMap :- makeMap,
+            printMap1(0,0).
 
-makeMusuh2	:-	
-				random(1,3,Number),
-				musuh(_,[A,B]),!,
-				A =\= X,
-				B =\= Y,
-				enemy(Number,NamaMusuh),
-				asserta(musuh(NamaMusuh,[X,Y])).
+printMap1(Panjang,Lebar) :- lebarMap(Lbr),
+                            panjangMap(Pjg),
+                            Pjg1 is Pjg+1,
+                            Panjang =:= Pjg1,
+                            Lbr1 is Lbr+1,
+                            Lebar =:= Lbr1,
+                            write('#'),nl.
 
-makeMusuh2	:-	panjangMap(Panjang),
-				lebarMap(Lebar),
-				random(1,Panjang,X),
-				random(1,Lebar,Y),
-				random(1,3,Number),
-				musuh(_,[A,B]),!,
-				A =:= X,
-				B =:= Y.
+printMap1(Panjang,Lebar) :- isTopBorder(Lebar,Panjang),
+                            isNotRightBorder(Lebar,Panjang),
+                            write('#'),
+                            Lnew is Lebar +1,
+                            printMap1(Panjang, Lnew).
 
-makeMusuh1	:-	panjangMap(Panjang),
-				lebarMap(Lebar),
-				random(1,Panjang,X),
-				random(1,Lebar,Y),
-				random(1,3,Number),
-				musuh(_,[A,B]),
-				enemy(Number,NamaMusuh),
-				asserta(musuh(NamaMusuh,[X,Y])).
+printMap1(Panjang,Lebar) :- isLeftBorder(Lebar,Panjang),
+        isNotTopBorder(Lebar,Panjang),
+        write('#'),
+        Lnew is Lebar+1,
+        printMap1(Panjang,Lnew).
 
-createEnemy(1)	:- makeMusuh2.
-createEnemy(Number)	:- 	banyakMusuh(Banyak),
-						Number =:= Banyak,
-						makeMusuh1,
-						X is Number-1,
-						createEnemy(X).
+printMap1(Panjang,Lebar) :- isRightBorder(Lebar,Panjang),
+        isNotBottomBorder(Lebar,Panjang),
+        write('#'),nl,
+        X is Panjang+1,
+        Y = 0,
+        printMap1(X,Y).
 
-createEnemy(Number)	:- 	banyakMusuh(Banyak),
-						Number =\= Banyak,
-						panjangMap(Panjang),
-						lebarMap(Lebar),
-						random(1,Panjang,X),
-						random(1,Lebar,Y),
-						musuh(NamaMusuh,[A,B]),
-						makeMusuh2,
-						X is Number-1,
-						createEnemy(X).
+printMap1(Panjang,Lebar) :- isBottomBorder(Lebar,Panjang),
+        isNotLeftBorder(Lebar,Panjang),
+        isNotRightBorder(Lebar,Panjang),
+        write('#'),
+        Lnew is Lebar +1,
+        printMap1(Panjang,Lnew).
 
-
-
-
-/*	PRINT MAP 	*/
-makeMap :-	random(15,20,Panjang),
-           	random(10,15,Lebar),
-           	asserta(panjangMap(Panjang)),
-           	asserta(lebarMap(Lebar)).
-
-isTopBorder(_,Y)	:- 	Y=:=0,!.
-isBottomBorder(_,Y)	:- 	panjangMap(Panjang),
-						Y=:=Panjang+1,!.
-isRightBorder(X,_)	:-	lebarMap(Lebar),
-						X=:=Lebar+1,!.
-isLeftBorder(X,_)	:-	lebarMap(Lebar),
-						X=:=0,!.
-
-isNotTopBorder(_,Y)	:- 	Y=\=0,!.
-isNotBottomBorder(_,Y)	:- 	panjangMap(Panjang),
-							Y=\=Panjang+1,!.
-isNotRightBorder(X,_)	:-	lebarMap(Lebar),
-							X=\=Lebar+1,!.
-isNotLeftBorder(X,_)	:-	lebarMap(Lebar),
-							X=\=0,!.
-
-initialMap	:-	makeMap,
-				printMap1(0,0).
-
-printMap1(Panjang,Lebar)	:- 	isTopBorder(Lebar,Panjang),
-								isNotRightBorder(Lebar,Panjang),
-								write('#'),
-								Lnew is Lebar +1,
-								printMap1(Panjang, Lnew).
-
-printMap1(Panjang,Lebar)	:-	isLeftBorder(Lebar,Panjang),
-								isNotTopBorder(Lebar,Panjang),
-								write('#'),nl,
-								Lnew is Lebar+1,
-								printMap1(Panjang,Lnew).
-
-printMap1(Panjang,Lebar)	:-	isRightBorder(Lebar,Panjang),
-								isNotBottomBorder(Lebar,Panjang),
-								write('#'),nl,
-								X is Panjang+1,
-								printMap1(X,0).
-
-printMap1(Panjang,Lebar)	:-	isBottomBorder(Lebar,Panjang),
-								isNotLeftBorder(Lebar,Panjang),
-								isNotRightBorder(Lebar,Panjang),
-								write('#'),
-								Lnew is Lebar +1,
-								printMap1(Panjang,Lnew).
-printMap1(Panjang,Lebar)	:-	isRightBorder(Lebar,Panjang),
-								isBottomBorder(Lebar,Panjang),
-								write('#').
-
-printMap1(Panjang,Lebar)	:-	isNotRightBorder(Lebar,Panjang),
-								isNotLeftBorder(Lebar,Panjang),
-								isNotBottomBorder(Lebar,Panjang),
-								isNotTopBorder(Lebar,Panjang),
-								write('-'),
-								Lnew is Lebar+1,
-								printMap1(Panjang,Lnew).
-
-
-
-
-
-
-
+printMap1(Panjang,Lebar) :- isNotRightBorder(Lebar,Panjang),
+        isNotLeftBorder(Lebar,Panjang),
+        isNotBottomBorder(Lebar,Panjang),
+        isNotTopBorder(Lebar,Panjang),
+        write('-'),
+        Lnew is Lebar+1,
+        printMap1(Panjang,Lnew).
