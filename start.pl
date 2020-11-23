@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-/*      MEMASUKI PERMAINAN      */
-start   :- legenda,read(X),action(X).
-=======
 :-dynamic(job/1).
 
 /*      MEMASUKI PERMAINAN      */
@@ -16,7 +12,6 @@ start   :-  write('   ____  U _____ u _   _    ____     _   _               _   
             write('Let\'s play and be a programmer'),nl,nl,
             legenda.
 
->>>>>>> 5451d658681b2271e50360a36fdea2d80c63a487
 /* LEGENDA */
 legenda:- corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,legenda9,corner(100).
             

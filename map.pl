@@ -128,7 +128,7 @@ printMap1(Panjang,Lebar)	:-	isBottomBorder(Lebar,Panjang),
 								Lnew is Lebar +1,
 								printMap1(Panjang,Lnew).
 printMap1(Panjang,Lebar)	:-	isRightBorder(Lebar,Panjang),
-								isBottomBorder(Lebar,Panajng),
+								isBottomBorder(Lebar,Panjang),
 								write('#').
 
 printMap1(Panjang,Lebar)	:-	isNotRightBorder(Lebar,Panjang),
