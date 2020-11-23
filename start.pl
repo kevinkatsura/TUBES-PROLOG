@@ -1,76 +1,94 @@
+<<<<<<< HEAD
 /*      MEMASUKI PERMAINAN      */
 start   :- legenda,read(X),action(X).
+=======
+:-dynamic(job/1).
+
+/*      MEMASUKI PERMAINAN      */
+start   :-  write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
+            write('U /"___|u | ___"|/| \\ |"|  / __"| u | | | |     ___     | \\ |"|  '),nl,
+            write('\\| |  _ / |  _|" <|  \\| |><\\___ \\/ /| |_| |\\   |_"_|   <|  \\| |>   '),nl,
+            write(' | |_| |  | |___ U| |\\  |u u___) | U|  _  |u    | |    U| |\\  |u  '),nl,
+            write('  \\____|  |_____| |_| \\_|  |____/>> |_| |_|   U/| |\\u   |_| \\_|    '),nl,
+            write('  _)(|_   <<   >> ||   \\,-.)(  (__)//   \\.-,_|___|_,-.||   \\,-. '),nl,
+            write('(__)__) (__) (__)(_")  (_/(__)    (_") ("_)\\_)-\' \'-(_/ (_")  (_/  '),nl,nl,
+            write('Good isekai game!!'),nl,nl,
+            write('Let\'s play and be a programmer'),nl,nl,
+            legenda.
+
+>>>>>>> 5451d658681b2271e50360a36fdea2d80c63a487
 /* LEGENDA */
-legenda:-   corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,legenda9,corner(100).
+legenda:- corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,legenda9,corner(100).
             
-judulLegenda:-  write(*),
+judulLegenda:-  write('%'),
                 tab(36),
                 write('-- TIM AMBIS LUAR BIASA --'),
                 tab(36),
-                write(*),
+                write('%'),
                 nl.
-legenda1    :-  write(*),
+legenda1    :-  write('%'),
                 tab(2),
-                write('1. start  : untuk memulai petualanganmu'),
+                write('1. play   : untuk memulai petualanganmu'),
                 tab(57),
-                write(*),
+                write('%'),
                 nl.
-legenda2    :-  write(*),
+legenda2    :-  write('%'),
                 tab(2),
                 write('2. map    : menampilkan peta'),
                 tab(68),
-                write(*),
+                write('%'),
                 nl.
-legenda3    :-  write(*),
+legenda3    :-  write('%'),
                 tab(2),
                 write('3. status : menampilkan kondisimu terkini'),
                 tab(55),
-                write(*),
+                write('%'),
                 nl.
-legenda4    :-  write(*),
+legenda4    :-  write('%'),
                 tab(2),
                 write('4. w      : gerak ke utara 1 langkah'),
                 tab(60),
-                write(*),
+                write('%'),
                 nl.
-legenda5    :-  write(*),
+legenda5    :-  write('%'),
                 tab(2),
                 write('5. s      : gerak ke selatan 1 langkah  '),
                 tab(56),
-                write(*),
+                write('%'),
                 nl.
-legenda6    :-  write(*),
+legenda6    :-  write('%'),
                 tab(2),
                 write('6. d      : gerak ke ke timur 1 langkah'),
                 tab(57),
-                write(*),
+                write('%'),
                 nl.
-legenda7    :-  write(*),
+legenda7    :-  write('%'),
                 tab(2),
                 write('7. a      : gerak ke barat 1 langkah'),
                 tab(60),
-                write(*),
+                write('%'),
                 nl.
-legenda8    :-  write(*),
+legenda8    :-  write('%'),
                 tab(2),
                 write('8. Status : menampilkan status pemain'),
                 tab(59),
-                write(*),
+                write('%'),
                 nl.
-legenda9    :-  write(*),
+legenda9    :-  write('%'),
                 tab(2),
                 write('8. help   : menampilkan segala bantuan'),
                 tab(58),
-                write(*),
+                write('%'),
                 nl.
 corner(X):- X>1,
-            write(*),
+            write('%'),
             X1 is X-1, 
             corner(X1).
-corner(1):- write(*),nl.
+corner(1):- write('%'),nl.
 
 /*          PERINTAH MENURUT LEGENDA        */
 
+<<<<<<< HEAD
 /*  START   */
 play    :-  write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
@@ -89,5 +107,19 @@ action(X):- X=:=6.
 action(X):- X=:=7.
 action(X):- X=:=8.
 
+=======
+/* PLAY GAME */ 
+play   :-   write('Welcome to Genshin Asik. Choose your job'),nl,
+            write('1. Swordsman'),nl,
+            write('2. Archer'),nl,
+            write('3. Sorcerer'),nl,
+            write('>'),read(X),nl,Y is X,playuser(Y).
+>>>>>>> 5451d658681b2271e50360a36fdea2d80c63a487
 
-/*  MAP */
+/* Menampilkan output sesuai input user */
+playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
+                asserta(job('swordsman')). 
+playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
+                asserta(job('archer')).
+playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
+                asserta(job('sorcerer')). 
