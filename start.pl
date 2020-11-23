@@ -1,6 +1,6 @@
 :-dynamic(job/1).
 
-/*      MEMASUKI PERMAINAN      */
+/*************************** MEMASUKI PERMAINAN ***************************/
 start   :-  write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
             write('U /"___|u | ___"|/| \\ |"|  / __"| u | | | |     ___     | \\ |"|  '),nl,
             write('\\| |  _ / |  _|" <|  \\| |><\\___ \\/ /| |_| |\\   |_"_|   <|  \\| |>   '),nl,
@@ -83,33 +83,12 @@ corner(1):- write('%'),nl.
 
 /*          PERINTAH MENURUT LEGENDA        */
 
-<<<<<<< HEAD
-/*  START   */
-play    :-  write('Welcome to Genshin Asik. Choose your job'),nl,
-            write('1. Swordsman'),nl,
-            write('2. 2. Archer'),nl,
-            write('3. Sorcerer').
-map     :-  open('logkom.txt',read,Str),
-            read(Str,House1),
-            close(Str),
-            write(House1).
-action(X):- X=:=1,play.
-action(X):- X=:=2,map. 
-action(X):- X=:=3.
-action(X):- X=:=4.
-action(X):- X=:=5.
-action(X):- X=:=6.
-action(X):- X=:=7.
-action(X):- X=:=8.
-
-=======
 /* PLAY GAME */ 
 play   :-   write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,
             write('3. Sorcerer'),nl,
             write('>'),read(X),nl,Y is X,playuser(Y).
->>>>>>> 5451d658681b2271e50360a36fdea2d80c63a487
 
 /* Menampilkan output sesuai input user */
 playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
