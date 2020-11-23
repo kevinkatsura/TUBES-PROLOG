@@ -123,3 +123,7 @@ playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
                 asserta(job('archer')).
 playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
                 asserta(job('sorcerer')). 
+
+/* HELP */
+help :- nl,write('Need help? Read instructions below: '),nl,nl,
+        legenda.
