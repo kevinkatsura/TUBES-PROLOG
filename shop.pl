@@ -1,10 +1,8 @@
 /************************ TRANSAKSI DI SHOP ************************/
 :-dynamic(count/2).
 :-dynamic(isShop/0).
-:-dynamic(amount/1).
 
 /*Inventory awal*/
-amount(6).
 count('Wooden Sword (Swordsman)',1).
 count('Wooden Bow (Archer)',1).
 count('Magic Book (Sorcerer)',1).
