@@ -39,20 +39,20 @@ slime(0).
 goblin(0).
 wolf(0).
 
-quest:- quest1,nl,write('Your first quest: '),nl,nl,
+quest:- isPlay,quest1,nl,write('Your first quest: '),nl,nl,
 		write('Beat slime '),slime(X),write(X),write('/5'),nl,
 		write('Beat goblin '),goblin(Y),write(Y),write('/3'),nl,
 		write('Beat wolf '),wolf(Z),write(Z),write('/1'),nl,!.
-quest:- quest2,nl,write('Your second quest: '),nl,nl,
+quest:- isPlay,quest2,nl,write('Your second quest: '),nl,nl,
 		write('Beat slime '),slime(X),write(X),write('/8'),nl,
 		write('Beat goblin '),goblin(Y),write(Y),write('/5'),nl,
 		write('Beat wolf '),wolf(Z),write(Z),write('/3'),nl,!.
-quest:- quest3,nl,write('Your third quest: '),nl,nl,
+quest:- isPlay,quest3,nl,write('Your third quest: '),nl,nl,
 		write('Beat slime '),slime(X),write(X),write('/10'),nl,
 		write('Beat goblin '),goblin(Y),write(Y),write('/8'),nl,
 		write('Beat wolf '),wolf(Z),write(Z),write('/5'),nl,!.
-quest:- quest4,nl,write('Your fourth quest: '),nl,nl,
+quest:- isPlay,quest4,nl,write('Your fourth quest: '),nl,nl,
 		write('Beat slime '),slime(X),write(X),write('/15'),nl,
 		write('Beat goblin '),goblin(Y),write(Y),write('/10'),nl,
 		write('Beat wolf '),wolf(Z),write(Z),write('/8'),nl,!.
-quest:- nl,write('You have no quest.'),nl.
+quest:- isPlay,nl,write('You have no quest.'),nl.

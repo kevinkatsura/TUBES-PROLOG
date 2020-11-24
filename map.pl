@@ -39,7 +39,7 @@ isNotStorePosition(X,Y) :- storePosition([X1,Y1]),
        Y=\=Y1,!.
 
 /* QUEST */
-quest  :- storePosition([X2,Y2]),
+questP  :- storePosition([X2,Y2]),
    dungeonPosition([X1,Y1]),
    panjangMap(Panjang),
    lebarMap(Lebar),
@@ -268,14 +268,14 @@ printMap1(Panjang,Lebar)	:-	isNotRightBorder(Panjang,Lebar),
 
 				
 /*	Mengosongkan dynamic Predicate	*/
-hapus	:- 	retract(panjangMap(Panjang)),
-			retract(lebarMap(Lebar)),
-			retract(storePosition([X,Y])),
-			retract(dungeonPosition([X1,Y1])),
-			retract(questPosition([X2,Y2])),
-			retract(playerPosition([X3,Y3])).
+hapus	:- 	retract(panjangMap(_Panjang)),
+			retract(lebarMap(_Lebar)),
+			retract(storePosition([_X,_Y])),
+			retract(dungeonPosition([_X1,_Y1])),
+			retract(questPosition([_X2,_Y2])),
+			retract(playerPosition([_X3,_Y3])).
 
 /* Memanggil Map acak	*/
-initialMap	:-	makeMap,dungeon,store,quest,player,describeMap,hapus,!.
+initialMap	:-	makeMap,dungeon,store,questP,player,describeMap,hapus,!.
 
 

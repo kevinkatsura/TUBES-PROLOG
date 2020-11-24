@@ -18,7 +18,8 @@ count('Magic Wand (Sorcerer)',0).
 shop:- 	isPlay,
 		write('What do you want to buy?'),nl,
 		write('1. Gacha (1000 gold)'),nl,
-		write('2. Health Potion (100 gold)'),nl,asserta(isShop).
+		write('2. Health Potion (100 gold)'),nl,
+		asserta(isShop),retract(isPlay),retract(isStart).
 
 /*Melakukan pembelian item yang telah dirandom apabila uang mencukupi*/
 gacha:- isShop,
@@ -94,7 +95,8 @@ items(X):-	X=:=6,job('archer'),
 			upAttack(15).
 
 /*Keluar dari shop*/
-exitShop:- isShop,write('Thanks for coming.').
+exitShop:-	isShop,write('Thanks for coming.'), 
+			asserta(isPlay),asserta(isStart).
 
 /*Menampilkan inventory ke layar*/
 inventory:- nl,write('Your inventory:'),nl,
