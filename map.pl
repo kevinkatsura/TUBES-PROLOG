@@ -29,11 +29,12 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),asserta(getEnemy),
+w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		musuh(C,[A,B]),statusEnemy(C),found(C),!.
 w 	:- 	playerPosition([X,Y]), 
 		A is X+1, 
 		B = Y, 
@@ -57,11 +58,12 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),asserta(getEnemy),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		musuh(C,[A,B]),statusEnemy(C),found(C),!.
 a 	:- 	playerPosition([X,Y]), 
 		B is Y+1, 
 		A = X, 
@@ -85,11 +87,12 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),asserta(getEnemy),
+s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		musuh(C,[A,B]),statusEnemy(C),found(C),!.
 s 	:- 	playerPosition([X,Y]), 
 		A is X-1, 
 		B = Y, 
@@ -113,11 +116,12 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),asserta(getEnemy),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		musuh(C,[A,B]),statusEnemy(C),found(C),!.
 d 	:- 	playerPosition([X,Y]), 
 		B is Y-1, 
 		A = X, 
@@ -384,12 +388,15 @@ isNotLeftBorder(_,Y)	:-	lebarMap(Lebar),
 describeMap1	:-	panjangMap(Panjang),
 					lebarMap(Lebar),
 					Pjg is Panjang+1,
-					Lbr is Lebar+1,
+					Lbr is Lebar+1,nl,
+					write('-->> Map of World'),nl,nl,
 					printMap1(Pjg,Lbr),!.
 describeMap2	:-	panjangMap(Panjang),
 					lebarMap(Lebar),
 					Pjg is Panjang+1,
 					Lbr is Lebar+1,
+					nl,write('-->> Map of God'),nl,
+					write('-->> Let see who you are!'),nl,nl,
 					printMap2(Pjg,Lbr),!.
 
 /*Print Map Tanpa Enemy*/
@@ -542,5 +549,12 @@ map:-	isPlay,
 		describeMap1,!.
 
 teleport:- hapusPlayer,player.
-
-
+teleportS	:-	hapusPlayer,
+				storePosition([X1,Y1]),
+				asserta(playerPosition([X1,Y1])).
+teleportQ	:-	hapusPlayer,
+				questPosition([X1,Y1]),
+				asserta(playerPosition([X1,Y1])).
+teleportD	:-	hapusPlayer,
+				dungeonPosition([X1,Y1]),
+				asserta(playerPosition([X1,Y1])).
