@@ -7,6 +7,7 @@ count('Wooden Sword (Swordsman)',1).
 count('Wooden Bow (Archer)',1).
 count('Magic Book (Sorcerer)',1).
 count('Health Potion',3).
+count('Magic Vision',0).
 count('Iron Armor',0).
 count('Iron Helmet',0).
 count('Iron Shield',0).
@@ -18,7 +19,8 @@ count('Magic Wand (Sorcerer)',0).
 shop:- 	isPlay,asserta(isShop),retract(isPlay),
 		write('What do you want to buy?'),nl,
 		write('1. Gacha (1000 gold)'),nl,
-		write('2. Health Potion (100 gold)'),nl.
+		write('2. Health Potion (100 gold)'),nl,
+		write('3. Magic Vision (100 gold)'),nl.
 
 /*Melakukan pembelian item yang telah dirandom apabila uang mencukupi*/
 gacha:- isShop,
@@ -46,6 +48,20 @@ beliPotion:-	amount(A), A=100,
 beliPotion:-	amount(A), A<100, 
 				write('You get Health Potion.'),
 				count('Health Potion',Y),Z is Y+1,asserta(count('Health Potion',Z)),
+				gold(X),M is (X-100), asserta(gold(M)),
+				B is A+1,asserta(amount(B)).
+
+/*Melakukan pembelian Magic Vision apabila uang mencukupi*/
+vision:-	isShop,
+			gold(Y),Y<100,
+			write('You don\'t have enough money.'),nl,!.
+vision:-	isShop,gold(Y),Y>=100,beliVision,!.			
+
+beliVision:-	amount(A), A=100,
+				write('Your inventory is full, transaction canceled.'),nl,!.
+beliVision:-	amount(A), A<100, 
+				write('You get Magic Vision.'),
+				count('Magic Vision',Y),Z is Y+1,asserta(count('Magic Vision',Z)),
 				gold(X),M is (X-100), asserta(gold(M)),
 				B is A+1,asserta(amount(B)).
 
@@ -103,6 +119,7 @@ inventory:- isShop,!,nl,write('Your inventory:'),nl,
 			invent('Wooden Bow (Archer)'),
 			invent('Magic Book (Sorcerer)'),
 			invent('Health Potion'),
+			invent('Magic Vision'),
 			invent('Iron Armor'),
 			invent('Iron Helmet'),
 			invent('Iron Shield'),
@@ -114,6 +131,7 @@ inventory:- isPlay,!,nl,write('Your inventory:'),nl,
 			invent('Wooden Bow (Archer)'),
 			invent('Magic Book (Sorcerer)'),
 			invent('Health Potion'),
+			invent('Magic Vision'),
 			invent('Iron Armor'),
 			invent('Iron Helmet'),
 			invent('Iron Shield'),
