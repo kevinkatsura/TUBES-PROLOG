@@ -8,6 +8,8 @@
 :- dynamic(dungeonPosition/1).
 :- dynamic(playerPosition/1).
 :- dynamic(getShop/0).
+:- dynamic(noMap/0).
+noMap.
 
 /*		MOVEMENT		*/
 /*	W 	*/
@@ -72,9 +74,6 @@ isDungeonPosition(X,Y)	:- 	dungeonPosition([X1,Y1]),!,
 							X=:=X1,
 							Y=:=Y1,!.
 
-isNotDungeonPosition(X,Y)	:- 	dungeonPosition([X1,Y1]),!,
-								X=\=X1,
-								Y=\=Y1,!.
 
 
 /* STORE */
@@ -93,19 +92,16 @@ trialForStore(X1,Y1,X2,Y2) :- X1 =:= X2,
         random(1,Lebar,Lbr),
         trialForStore(Pjg,Lbr,X2,Y2).
 
-trialForStore(X1,Y1,X2,Y2) :- 
+trialForStore(X1,Y1,_X2,_Y2) :- 
         asserta(storePosition([X1,Y1])).
 
 isStorePosition(X,Y) :- storePosition([X1,Y1]),
        X=:=X1,
        Y=:=Y1,!.
 
-isNotStorePosition(X,Y) :- storePosition([X1,Y1]),
-       X=\=X1,
-       Y=\=Y1,!.
 
 /* QUEST */
-quest  :- storePosition([X2,Y2]),
+questP  :- storePosition([X2,Y2]),
    dungeonPosition([X1,Y1]),
    panjangMap(Panjang),
    lebarMap(Lebar),
@@ -132,7 +128,7 @@ trialForQuest(X,Y,_A,_B,X2,Y2) :-
          random(1,Lebar,Lbr),
          trialForQuest(Pjg,Lbr,_A,_B,X2,Y2).
 
-trialForQuest(X,Y,X1,Y1,X2,Y2) :- 
+trialForQuest(X,Y,_X1,_Y1,_X2,_Y2) :- 
          asserta(questPosition([X,Y])).
 
 
@@ -141,9 +137,6 @@ isQuestPosition(X,Y) :-  questPosition([X1,Y1]),
        X=:=X1,
        Y=:=Y1,!.
 
-isNotQuestPosition(X,Y) :-  questPosition([X1,Y1]),
-       X=\=X1,
-       Y=\=Y1,!.
 
 /* PLAYER  */
 player  :-  dungeonPosition([X1,Y1]),
@@ -181,7 +174,7 @@ triaForPlayer(X,Y,_X1,_Y1,_X2,_Y2,X3,Y3) :-
            random(1,Lebar,Lbr),
            triaForPlayer(Pjg,Lbr,_X1,_Y1,_X2,_Y2,X3,Y3).
 
-triaForPlayer(X,Y,X1,Y1,X2,Y2,X3,Y3) :-
+triaForPlayer(X,Y,_X1,_Y1,_X2,_Y2,_X3,_Y3) :-
            asserta(playerPosition([X,Y])).
 
 
@@ -189,9 +182,6 @@ isPlayerPosition(X,Y) :-  playerPosition([X1,Y1]),
        X=:=X1,
        Y=:=Y1,!.
 
-isNotPlayerPosition(X,Y) :- playerPosition([X1,Y1]),
-        X=\=X1,
-        Y=\=Y1,!.
 
 /*			BUAT MUSUH 			*/
 
@@ -221,7 +211,7 @@ makeMusuh1(PjgE,LbrE,X1,Y1,_X2,_Y2,_X3,_Y3,_X4,_Y4) 	:-	PjgE==X1,
 															random(1,Lbr,LbrN),
 															makeMusuh1(PjgN,LbrN,X1,Y1,_X2,_Y2,_X3,_Y3,_X4,_Y4).
 
-makeMusuh1(PjgE,LbrE,_X1,_Y1,X2,Y2,_X3,_Y3,_X4,_Y4) 	:-	PjgE==X2,
+makeMusuh1(PjgE,_LbrE,_X1,_Y1,X2,Y2,_X3,_Y3,_X4,_Y4) 	:-	PjgE==X2,
 															Lbr==Y2,
 															panjangMap(Panjang),
 															lebarMap(Lebar),
@@ -303,7 +293,6 @@ isRightBorder(_,Y)	:-	Y=:=0,!.
 isLeftBorder(_,Y)	:-	lebarMap(Lebar),
 						Lbr is Lebar+1,
 						Lbr =:= Y,!.
-
 isNotTopBorder(X,_)	:- 	panjangMap(Panjang),
 						Pjg is Panjang+1,
 						X =\= Pjg,!.
@@ -312,6 +301,7 @@ isNotRightBorder(_,Y)	:-	Y=\=0,!.
 isNotLeftBorder(_,Y)	:-	lebarMap(Lebar),
 							Lbr is Lebar+1,
 							Lbr =\= Y,!.
+
 describeMap	:-	panjangMap(Panjang),
 				lebarMap(Lebar),
 				Pjg is Panjang+1,
@@ -380,14 +370,14 @@ printMap1(Panjang,Lebar)	:-	write('-'),
 
 				
 /*	Mengosongkan dynamic Predicate	*/
-hapusMap			:- 	retract(panjangMap(Panjang)),
-						retract(lebarMap(Lebar)).
-hapusStore			:-	retract(storePosition([X,Y])).
-hapusDungeon		:-	retract(dungeonPosition([X1,Y1])).
-hapusQuest			:-	retract(questPosition([X2,Y2])).
-hapusPlayer			:-	retract(playerPosition([X3,Y3])).
-hapusE				:-	retractall(musuh(A,[B,C])).
-hapusBanyakMusuh	:-	retractall(banyakMusuh(X)).
+hapusMap			:- 	retract(panjangMap(_Panjang)),
+						retract(lebarMap(_Lebar)).
+hapusStore			:-	retract(storePosition([_X,_Y])).
+hapusDungeon		:-	retract(dungeonPosition([_X1,_Y1])).
+hapusQuest			:-	retract(questPosition([_X2,_Y2])).
+hapusPlayer			:-	retract(playerPosition([_X3,_Y3])).
+hapusE				:-	retractall(musuh(_A,[_B,_C])).
+hapusBanyakMusuh	:-	retractall(banyakMusuh(_X)).
 hapus 				:-	hapusMap,
 						hapusStore,
 						hapusDungeon,
@@ -396,13 +386,9 @@ hapus 				:-	hapusMap,
 						hapusE,
 						hapusBanyakMusuh,!.
 
+map:-	isPlay, noMap,!,retract(noMap), 
+		randomMap, dungeon, store, questP, player, makeMusuh, describeMap.
+map:-	isPlay,
+		describeMap,!.
 
-/*		MEMBUAT MAP BARU		*/
-newMap		:- 	randomMap,!,
-				dungeon,!,
-				store,!,
-				quest,!,
-				player,!,
-				makeMusuhAwal,
-				describeMap,!,
-				hapus.
+teleport:- hapusPlayer,player.
