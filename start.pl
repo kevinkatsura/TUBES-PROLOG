@@ -1,5 +1,12 @@
+:-dynamic(isStart/0).
+:-dynamic(noStart/0).
+:-dynamic(noPlay/0).
+noStart.
+noPlay.
+
 /*************************** MEMASUKI PERMAINAN ***************************/
-start   :-  write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
+start   :-  noStart,!,retract(noStart),asserta(isStart),
+            write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
             write('U /"___|u | ___"|/| \\ |"|  / __"| u | | | |     ___     | \\ |"|  '),nl,
             write('\\| |  _ / |  _|" <|  \\| |><\\___ \\/ /| |_| |\\   |_"_|   <|  \\| |>   '),nl,
             write(' | |_| |  | |___ U| |\\  |u u___) | U|  _  |u    | |    U| |\\  |u  '),nl,
@@ -82,7 +89,8 @@ corner(1):- write('%'),nl.
 /*          PERINTAH MENURUT LEGENDA        */
 
 /* PLAY GAME */ 
-play   :-   isStart, asserta(isPlay),
+play   :-   isStart,!,noPlay,!,
+            retract(noPlay), asserta(isPlay),
             write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,
@@ -91,11 +99,11 @@ play   :-   isStart, asserta(isPlay),
 
 /* Menampilkan output sesuai input user */
 playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
-                asserta(job('swordsman')). 
+                asserta(job('swordsman')),!. 
 playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
-                asserta(job('archer')).
+                asserta(job('archer')),!.
 playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
-                asserta(job('sorcerer')). 
+                asserta(job('sorcerer')),!. 
 
 /* HELP */
 help :- nl,write('Need help? Read instructions below: '),nl,nl,
