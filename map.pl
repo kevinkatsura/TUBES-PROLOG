@@ -7,7 +7,7 @@
 :- dynamic(questPosition/1).
 :- dynamic(dungeonPosition/1).
 :- dynamic(playerPosition/1).
-:- dynamic(getShop/0).
+:- dynamic(getStore/0).
 :- dynamic(noMap/0).
 noMap.
 
@@ -24,7 +24,7 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),asserta(getStore),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),asserta(getQuest),
+w 	:- 	playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -52,7 +52,7 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),asserta(getStore),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),asserta(getQuest),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -80,7 +80,7 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),asserta(getStore),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),asserta(getQuest),
+s 	:- 	playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -108,12 +108,12 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),asserta(getQuest),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),asserta(getQuest),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),asserta(getEnemy),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -338,6 +338,9 @@ createEnemy(Number)	:-	panjangMap(Panjang),
 						createEnemy(NewNumber).
 
 /*		MENENTUKAN APAKAH ENEMY ADA DI TITIK	*/
+isEnemyPosition(Panjang,Lebar)	:-	musuh(_,[A,B]),
+									Panjang=:=A,
+									Lebar=:=B,!.
 isEnemy1Position(Panjang,Lebar)	:-	musuh(C,[A,B]),
 									Panjang=:=A,
 									Lebar=:=B,
@@ -534,9 +537,9 @@ hapus 				:-	hapusMap,
 						hapusBanyakMusuh,!.
 
 map:-	isPlay, noMap,!,retract(noMap), 
-		randomMap, dungeon, store, questP, player, makeMusuh, describeMap.
+		randomMap, dungeon, store, questP, player, makeMusuhAwal, describeMap1.
 map:-	isPlay,
-		describeMap,!.
+		describeMap1,!.
 
 teleport:- hapusPlayer,player.
 

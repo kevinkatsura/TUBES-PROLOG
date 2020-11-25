@@ -16,7 +16,7 @@ count('Fire Arrow (Archer)',0).
 count('Magic Wand (Sorcerer)',0).
 
 /*Menampilkan pilihan transaksi*/
-shop:- 	isPlay,asserta(isShop),retract(isPlay),
+shop:- 	isPlay,getStore,!,asserta(isShop),retract(isPlay),
 		write('What do you want to buy?'),nl,
 		write('1. Gacha (1000 gold)'),nl,
 		write('2. Health Potion (100 gold)'),nl,
@@ -110,8 +110,8 @@ items(X):-	X=:=6,job('archer'),
 			upAttInv(15),!.
 
 /*Keluar dari shop*/
-exitShop:-	isShop,!,retract(isShop),write('Thanks for coming.'), 
-			asserta(isPlay).
+exitShop:-	isShop,!,retract(isShop),retract(getStore),write('Thanks for coming.'), 
+			asserta(isPlay),w.
 
 /*Menampilkan inventory ke layar*/
 inventory:- isShop,!,nl,write('Your inventory:'),nl,
