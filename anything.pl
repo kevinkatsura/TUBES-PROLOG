@@ -1,1 +1,0 @@
-wow	:- X is floor(1.5),write(X).
