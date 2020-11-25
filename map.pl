@@ -14,11 +14,14 @@ noMap.
 /*		MOVEMENT		*/
 /*	W 	*/
 w 	:- 	playerPosition([X,Y]), A is X+1, isTopBorder(A,Y),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),asserta(getDungeon),
+w 	:- 	playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),nl,
+		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		foundDungeon,statusEnemy(boss),nl,nl,
+		write('-->>> attack / run '),!.
 w 	:- 	playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),asserta(getStore),
 		A is X+1, 
 		B = Y, 
@@ -34,7 +37,10 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),statusEnemy(C),found(C),!.
+		musuh(C,[A,B]),
+		write('-->>> There is a '),write(C),nl,nl,
+		statusEnemy(C),found(C),nl,nl,
+		write('-->>> attack / run '),!.
 w 	:- 	playerPosition([X,Y]), 
 		A is X+1, 
 		B = Y, 
@@ -43,11 +49,14 @@ w 	:- 	playerPosition([X,Y]),
 
 /*	A 	*/
 a 	:- 	playerPosition([X,Y]), B is Y+1, isLeftBorder(X,B),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),asserta(getDungeon),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		foundDungeon,statusEnemy(boss),nl,nl,
+		write('-->>> attack / run '),!.
 a 	:- 	playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),asserta(getStore),
 		B is Y+1, 
 		A = X, 
@@ -63,7 +72,10 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),statusEnemy(C),found(C),!.
+		musuh(C,[A,B]),
+		write('-->>> There is a '),write(C),nl,nl,
+		statusEnemy(C),found(C),nl,nl,
+		write('-->>> attack / run '),!.
 a 	:- 	playerPosition([X,Y]), 
 		B is Y+1, 
 		A = X, 
@@ -72,11 +84,14 @@ a 	:- 	playerPosition([X,Y]),
 
 /*	S 	*/
 s 	:- 	playerPosition([X,Y]), A is X-1, isBottomBorder(A,Y),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),asserta(getDungeon),
+s 	:- 	playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		foundDungeon,statusEnemy(boss),nl,nl,
+		write('-->>> attack / run '),!.
 s 	:- 	playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),asserta(getStore),
 		A is X-1, 
 		B = Y, 
@@ -92,7 +107,10 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),statusEnemy(C),found(C),!.
+		musuh(C,[A,B]),
+		write('-->>> There is a '),write(C),nl,nl,
+		statusEnemy(C),found(C),nl,nl,
+		write('-->>> attack / run '),!.
 s 	:- 	playerPosition([X,Y]), 
 		A is X-1, 
 		B = Y, 
@@ -101,11 +119,14 @@ s 	:- 	playerPosition([X,Y]),
 
 /*	D 	*/
 d 	:- 	playerPosition([X,Y]), B is Y-1, isRightBorder(X,B),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),asserta(getDungeon),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
-		asserta(playerPosition([A,B])),!.
+		asserta(playerPosition([A,B])),
+		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		foundDungeon,statusEnemy(boss),nl,nl,
+		write('-->>> attack / run '),!.
 d 	:- 	playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
 		B is Y-1, 
 		A = X, 
@@ -121,7 +142,10 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),statusEnemy(C),found(C),!.
+		musuh(C,[A,B]),
+		write('-->>> There is a '),write(C),nl,nl,
+		statusEnemy(C),found(C),nl,nl,
+		write('-->>> attack / run '),!.
 d 	:- 	playerPosition([X,Y]), 
 		B is Y-1, 
 		A = X, 
