@@ -11,6 +11,8 @@
 :-dynamic(gold/1).
 :-dynamic(attack/1).
 :-dynamic(defense/1).
+:-dynamic(attInv/1).
+:-dynamic(defInv/1).
 :-dynamic(health/1).
 :-dynamic(batasExp/1).
 :-dynamic(batasHP/1).
@@ -25,6 +27,8 @@
 exp(0).
 attack(100).
 defense(80).
+attInv(0).
+defInv(0).
 level(1).
 gold(1000).
 health(1000).

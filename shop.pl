@@ -67,47 +67,47 @@ beliVision:-	amount(A), A<100,
 
 /*Menampilkan hasil gacha dan memperbaharui inventory*/
 items(X):-	X=:=1, write('You get an Iron Armor.'),nl,
-			count('Iron Armor',Y),Z is Y+1,asserta(count('Iron Armor',Z)),upDefense(25),!.
+			count('Iron Armor',Y),Z is Y+1,asserta(count('Iron Armor',Z)),upDefInv(25),!.
 items(X):-	X=:=2, write('You get an Iron Helmet.'),nl,
-			count('Iron Helmet',Y),Z is Y+1,asserta(count('Iron Helmet',Z)),upDefense(10),!.
+			count('Iron Helmet',Y),Z is Y+1,asserta(count('Iron Helmet',Z)),upDefInv(10),!.
 items(X):-	X=:=3, write('You get an Iron Shield.'),nl,
-			count('Iron Shield',Y),Z is Y+1,asserta(count('Iron Shield',Z)),upDefense(15),!.
+			count('Iron Shield',Y),Z is Y+1,asserta(count('Iron Shield',Z)),upDefInv(15),!.
 items(X):-	X=:=4,job('swordsman'),
 			write('You get an Excalibur (Swordsman).'),nl,
 			count('Excalibur (Swordsman)',Y),Z is Y+1,asserta(count('Excalibur (Swordsman)',Z)),
-			upAttack(30),!.
+			upAttInv(30),!.
 items(X):-	X=:=4,job('archer'),
 			write('You get an Excalibur (Swordsman).'),nl,
 			count('Excalibur (Swordsman)',Y),Z is Y+1,asserta(count('Excalibur (Swordsman)',Z)),
-			upAttack(25),!.
+			upAttInv(25),!.
 items(X):-	X=:=4,job('sorcerer'),
 			write('You get an Excalibur (Swordsman).'),nl,
 			count('Excalibur (Swordsman)',Y),Z is Y+1,asserta(count('Excalibur (Swordsman)',Z)),
-			upAttack(15),!.
+			upAttInv(15),!.
 items(X):-	X=:=5,job('archer'),
 			write('You get a Fire Arrow (Archer).'),nl,
 			count('Fire Arrow (Archer)',Y),Z is Y+1,asserta(count('Fire Arrow (Archer)',Z)),
-			upAttack(30),!.
+			upAttInv(30),!.
 items(X):-	X=:=5,job('swordsman'),
 			write('You get a Fire Arrow (Archer).'),nl,
 			count('Fire Arrow (Archer)',Y),Z is Y+1,asserta(count('Fire Arrow (Archer)',Z)),
-			upAttack(15),!.
+			upAttInv(15),!.
 items(X):-	X=:=5,job('sorcerer'),
 			write('You get a Fire Arrow (Archer).'),nl,
 			count('Fire Arrow (Archer)',Y),Z is Y+1,asserta(count('Fire Arrow (Archer)',Z)),
-			upAttack(25),!.
+			upAttInv(25),!.
 items(X):-	X=:=6,job('sorcerer'),
 			write('You get a Magic Wand.'),nl,
 			count('Magic Wand (Sorcerer)',Y),Z is Y+1,asserta(count('Magic Wand (Sorcerer)',Z)),
-			upAttack(30),!.
+			upAttInv(30),!.
 items(X):-	X=:=6,job('swordsman'),
 			write('You get a Magic Wand.'),nl,
 			count('Magic Wand (Sorcerer)',Y),Z is Y+1,asserta(count('Magic Wand (Sorcerer)',Z)),
-			upAttack(15),!.
+			upAttInv(15),!.
 items(X):-	X=:=6,job('archer'),
 			write('You get a Magic Wand.'),nl,
 			count('Magic Wand (Sorcerer)',Y),Z is Y+1,asserta(count('Magic Wand (Sorcerer)',Z)),
-			upAttack(15),!.
+			upAttInv(15),!.
 
 /*Keluar dari shop*/
 exitShop:-	isShop,!,retract(isShop),write('Thanks for coming.'), 
