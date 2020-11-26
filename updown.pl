@@ -1,104 +1,104 @@
 /************************************ UPGRADE DAN DOWNGRADE ***********************************/ 
 upAttInv(X):-	attInv(Y),!,
-		Y1 is Y+X,
-		asserta(attInv(Y1)).
+				Y1 is Y+X,
+				asserta(attInv(Y1)).
 
 upDefInv(X):-	defInv(Y),!,
-		Y1 is Y+X,
-		asserta(defInv(Y1)).
+				Y1 is Y+X,
+				asserta(defInv(Y1)).
 
 maxExp:-	job(swordsman),
-		level(5),!,
-		asserta(batasExp(99999)),
-		asserta(batasHP(1600)),
-		asserta(attack(175)),
-		asserta(defense(100)).
+			level(5),!,
+			asserta(batasExp(99999)),
+			asserta(batasHP(1600)),
+			asserta(attack(175)),
+			asserta(defense(100)).
 maxExp:-	job(swordsman),
-		level(4),!,
-		asserta(batasExp(750)),
-		asserta(batasHP(1500)),
-		asserta(attack(165)),
-		asserta(defense(95)).
+			level(4),!,
+			asserta(batasExp(750)),
+			asserta(batasHP(1500)),
+			asserta(attack(165)),
+			asserta(defense(95)).
 maxExp:-	job(swordsman),
-		level(3),!,
-		asserta(batasExp(600)),
-		asserta(batasHP(1350)),
-		asserta(attack(150)),
-		asserta(defense(90)).
+			level(3),!,
+			asserta(batasExp(600)),
+			asserta(batasHP(1350)),
+			asserta(attack(150)),
+			asserta(defense(90)).
 maxExp:-	job(swordsman),
-		level(2),!,
-		asserta(batasExp(450)),
-		asserta(batasHP(1200)),
-		asserta(attack(130)),
-		asserta(defense(80)).
+			level(2),!,
+			asserta(batasExp(450)),
+			asserta(batasHP(1200)),
+			asserta(attack(130)),
+			asserta(defense(80)).
 maxExp:-	job(swordsman),
-		level(1),!,
-		asserta(batasExp(300)),
-		asserta(batasHP(1000)),
-		asserta(attack(100)),
-		asserta(defense(70)).
+			level(1),!,
+			asserta(batasExp(300)),
+			asserta(batasHP(1000)),
+			asserta(attack(100)),
+			asserta(defense(70)).
 
 maxExp:-	job(archer),
-		level(5),!,
-		asserta(batasExp(99999)),
-		asserta(batasHP(1450)),
-		asserta(attack(170)),
-		asserta(defense(90)).
+			level(5),!,
+			asserta(batasExp(99999)),
+			asserta(batasHP(1450)),
+			asserta(attack(170)),
+			asserta(defense(90)).
 maxExp:-	job(archer),
-		level(4),!,
-		asserta(batasExp(600)),
-		asserta(batasHP(1300)),
-		asserta(attack(140)),
-		asserta(defense(80)).
+			level(4),!,
+			asserta(batasExp(600)),
+			asserta(batasHP(1300)),
+			asserta(attack(140)),
+			asserta(defense(80)).
 maxExp:-	job(archer),
-		level(3),!,
-		asserta(batasExp(500)),
-		asserta(batasHP(1250)),
-		asserta(attack(118)),
-		asserta(defense(80)).
+			level(3),!,
+			asserta(batasExp(500)),
+			asserta(batasHP(1250)),
+			asserta(attack(118)),
+			asserta(defense(80)).
 maxExp:-	job(archer),
-		level(2),!,
-		asserta(batasExp(400)),
-		asserta(batasHP(1100)),
-		asserta(attack(95)),
-		asserta(defense(70)).
+			level(2),!,
+			asserta(batasExp(400)),
+			asserta(batasHP(1100)),
+			asserta(attack(95)),
+			asserta(defense(70)).
 maxExp:-	job(archer),
-		level(1),!,
-		asserta(batasExp(250)),
-		asserta(batasHP(1000)),
-		asserta(attack(80)),
-		asserta(defense(70)).
+			level(1),!,
+			asserta(batasExp(250)),
+			asserta(batasHP(1000)),
+			asserta(attack(80)),
+			asserta(defense(70)).
 
 maxExp:-	job(sorcerer),
-		level(5),!,
-		asserta(batasExp(99999)),
-		asserta(batasHP(1450)),
-		asserta(attack(185)),
-		asserta(defense(80)).
+			level(5),!,
+			asserta(batasExp(99999)),
+			asserta(batasHP(1450)),
+			asserta(attack(185)),
+			asserta(defense(80)).
 maxExp:-	job(sorcerer),
-		level(4),!,
-		asserta(batasExp(650)),
-		asserta(batasHP(1300)),
-		asserta(attack(145)),
-		asserta(defense(70)).
+			level(4),!,
+			asserta(batasExp(650)),
+			asserta(batasHP(1300)),
+			asserta(attack(145)),
+			asserta(defense(70)).
 maxExp:-	job(sorcerer),
-		level(3),!,
-		asserta(batasExp(500)),
-		asserta(batasHP(1200)),
-		asserta(attack(110)),
-		asserta(defense(60)).
+			level(3),!,
+			asserta(batasExp(500)),
+			asserta(batasHP(1200)),
+			asserta(attack(110)),
+			asserta(defense(60)).
 maxExp:-	job(sorcerer),
-		level(2),!,
-		asserta(batasExp(350)),
-		asserta(batasHP(1100)),
-		asserta(attack(85)),
-		asserta(defense(55)).
+			level(2),!,
+			asserta(batasExp(350)),
+			asserta(batasHP(1100)),
+			asserta(attack(85)),
+			asserta(defense(55)).
 maxExp:-	job(sorcerer),
-		level(1),!,
-		asserta(batasExp(250)),
-		asserta(batasHP(1000)),
-		asserta(attack(70)),
-		asserta(defense(50)).
+			level(1),!,
+			asserta(batasExp(250)),
+			asserta(batasHP(1000)),
+			asserta(attack(70)),
+			asserta(defense(50)).
 
 
 naikLevel(Y1,R):-	Y1<R,write(''),!.
@@ -142,6 +142,31 @@ downHealth(X):-	health(Y),
 
 
 status:-	isPlay,nl,write('Your Status: '),nl,nl,
+			maxExp,
+			job(Q),
+			level(S),
+			health(T),
+			attack(U),
+			defense(V),
+			exp(W),
+			gold(X),
+			batasHP(Z),
+			batasExp(Y),
+			write('Job: '),
+			write(Q),nl,
+			write('Level: '),
+			write(S),nl,
+			write('Health: '),
+			write(T),write('/'),write(Z),nl,
+			write('Attack: '),
+			write(U),nl,
+			write('Defense: '),
+			write(V),nl,
+			write('Exp: '),
+			write(W),write('/'),write(Y),nl,
+			write('Gold: '), write(X),nl,!. 
+
+status:-	isBattle,nl,write('Your Status: '),nl,nl,
 			maxExp,
 			job(Q),
 			level(S),

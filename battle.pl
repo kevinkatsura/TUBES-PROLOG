@@ -77,7 +77,7 @@ attack:-	isBattle,attack(X),attInv(A),
 			enemyDfs(Y),
 			enemyHP(Z),!,
 			S is round((X+A)-(0.8*Y)),
-			T is Z-S,
+			T is Z-S,nl,
 			write('You deal '),write(S),write(' damage'),nl,
 			asserta(enemyHP(T)),chance(C),D is C-1,asserta(chance(D)),
 			cekDead(T),!.
@@ -88,7 +88,7 @@ doSpecialAttack(B):-	B=<1,attack(X),attInv(A),
 						enemyDfs(Y),
 						enemyHP(Z),!,
 						S is round(((X+A)*2)-(0.8*Y)),
-						T is Z-S,
+						T is Z-S,nl,
 						write('You deal '),write(S),write(' damage'),nl,
 						asserta(enemyHP(T)),asserta(chance(3)),cekDead(T),!.
 
@@ -96,10 +96,14 @@ doSpecialAttack(X):-	X>1,write('You can\'t use special attack'),nl,Y is X-1,
 						asserta(chance(Y)),
 						enemyHP(Z),cekDead(Z),!.
 
-cekMati(X):-	X=<0,write('You are dead.'),nl,
-				write('Would you like to play again?(y/n)'),nl,hapus,!.
-
+cekMati(X):-	X=<0,showDead,/*write('You are dead.'),*/nl,
+				write('Would you like to play again?(y/n)'),nl,
+				write('>'),read(I),cekInput(I).
 cekMati(X):-	X>0,write(''),!.
+cekInput(I):- I=='y',hapus,asserta(noStart),start,!.
+cekInput(I):- I=='n',quit,!.
+
+
 
 getAttack(S):-	S>0,
 				health(X),
@@ -118,8 +122,8 @@ getSpecialAttack:-	health(X),
 					write(S),write(' damage'),
 					asserta(health(T)),cekMati(T).
 	
-canRun(X):-	X=:=3, write('You are lucky, you can run'),
-			retract(isBattle),!.
+canRun(X):-	X=:=3, write('You are lucky, you can run.'),
+			retract(isBattle),asserta(isPlay),!.
 
 canRun(X):-	X=\=3,write('You can\'t run'),nl,random(1,5,Y),
 			enemyTurn(Y),!.
@@ -127,3 +131,14 @@ canRun(X):-	X=\=3,write('You can\'t run'),nl,random(1,5,Y),
 run:-	isBattle,random(1,5,X),
 		canRun(X).
 
+showDead:-	nl,
+			write('     *. ****.      ,*   ,o******o.     * ****      **           * *********o.       * **** *  **********   * *********o.          '),nl,
+			write('      *. ****.    ,* . ****      **.   * ****      **           * ****     ^***.    * **** *  ****         * ****     ^***.       '),nl,
+			write('       *. ****.  ,* ,* ****        *b  * ****      **           * ****         **.  * **** *  ****         * ****         **.     '),nl,
+			write('       *. ****.,*   ** ****         *b * ****      **           * ****          **  * **** *  ****         * ****          **     '),nl,
+			write('         *. *****   ** ****         ** * ****      **           * ****          **  * **** *  ************ * ****          **     '),nl,
+			write('          *. ****   ** ****         ** * ****      **           * ****          **  * **** *  ****         * ****          **     '),nl,
+			write('           * ****   ** ****        ,*P * ****      **           * ****         ,**  * **** *  ****         * ****         ,**     '),nl,
+			write('           * ****    * ****       ,*P    ****     ,*P           * ****        ,**   * **** *  ****         * ****        ,**      '),nl,
+			write('           * ****      ****     ,**      ****   ,d*P            * ****    ,o**P     * **** *  ****         * ****    ,o**P        '),nl,
+			write('           * ****        *******P          Y*****P              * *********P        * **** *  ************ * *********P           '),nl,nl,nl,nl.

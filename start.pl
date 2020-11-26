@@ -5,7 +5,7 @@ noStart.
 noPlay.
 
 /*************************** MEMASUKI PERMAINAN ***************************/
-start   :-  noStart,!,retract(noStart),asserta(isStart),
+start   :-  noStart,!,retract(noStart),nl,
             write('   ____  U _____ u _   _    ____     _   _               _   _ '),nl,
             write('U /"___|u | ___"|/| \\ |"|  / __"| u | | | |     ___     | \\ |"|  '),nl,
             write('\\| |  _ / |  _|" <|  \\| |><\\___ \\/ /| |_| |\\   |_"_|   <|  \\| |>   '),nl,
@@ -101,5 +101,7 @@ playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
                 asserta(job('sorcerer')),!. 
 
 /* HELP */
-help :- nl,write('Need help? Read instructions below: '),nl,nl,
+help:- nl,write('Need help? Read instructions below: '),nl,nl,
         legenda.
+
+quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl.

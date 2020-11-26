@@ -145,3 +145,9 @@ invent(X):-	count(X,Y),!,adaInvent(X,Y).
 adaInvent(X,Y):- Y>0,write(Y),write(' '),write(X),nl,!.
 adaInvent(_X,Y):- Y=0,write(''),!.
 
+usePotion:- isPlay,!,count('Health Potion',X),cekPotion(X),!.
+usePotion:- isBattle,!,count('Health Potion',X),cekPotion(X),!.
+
+cekPotion(X):- X>0,nl,write('Your HP is full again.'),asserta(health(1000)),nl,!.
+cekPotion(X):- X=0,nl,write('You don\'t have any Health Potion.'),nl,!.
+

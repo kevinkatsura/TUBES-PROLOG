@@ -421,7 +421,10 @@ describeMap2	:-	panjangMap(Panjang),
 					Lbr is Lebar+1,
 					nl,write('-->> Map of God'),nl,
 					write('-->> Let\'s see who you are!'),nl,nl,
-					printMap2(Pjg,Lbr),!.
+					printMap2(Pjg,Lbr),nl,
+					write('X -> slime'),nl,
+					write('Y -> goblin'),nl,
+					write('Z -> wolf'),!.
 
 /*Print Map Tanpa Enemy*/
 printMap1(Panjang,Lebar)	:- 	isRightBorder(Panjang,Lebar),
@@ -580,7 +583,7 @@ teleportS	:-	isPlay,
 teleportQ	:-	isPlay,
 				hapusPlayer,
 				questPosition([X1,Y1]),
-				asserta(playerPosition([X1,Y1])).
+				asserta(playerPosition([X1,Y1])),getQuest.
 teleportD	:-	isPlay,
 				hapusPlayer,
 				dungeonPosition([X1,Y1]),
