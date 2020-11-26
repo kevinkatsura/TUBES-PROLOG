@@ -5,7 +5,7 @@ load_game(Namafile):-
 
 	open(Namafile, read, Stream),
 
-    /*variabel global player*/
+	 /*variabel global player*/
 	isPlay,
 	exp(Exp),
 	level(Level),
@@ -83,7 +83,7 @@ load_game(Namafile):-
 	asserta(enemy(New_Enemy1,New_Enemy2,New_Enemy3)),
 
 
-    /*variabel global map*/
+   	/*variabel global map*/
 	panjangMap(a),
 	lebarMap(a),
 	musuh(a,b),
@@ -109,7 +109,7 @@ load_game(Namafile):-
 	retract(noMap),
 
 	read(Stream, new_panjangMap),
-    read(Stream, new_lebarMap),
+    	read(Stream, new_lebarMap),
 	read(Stream, new_nama),
 	read(Stream, new_posisi),
 	read(Stream, new_battle),
@@ -133,35 +133,35 @@ load_game(Namafile):-
 
 	/*variabel global musuh(enemy)*/
 	enemyHP(EnemyHP),
-    enemyAtk(EnemyAtk),
-    enemyDfs(EnemyDfs),
-    enemyExp(EnemyExp),
-    isBattle,
+	enemyAtk(EnemyAtk),
+    	enemyDfs(EnemyDfs),
+    	enemyExp(EnemyExp),
+    	isBattle,
 
-    retract(enemyHP(EnemyHP)),
-    retract(enemyAtk(EnemyAtk)),
-    retract(enemyDfs(EnemyDfs)),
-    retract(enemyExp(EnemyExp)),
+    	retract(enemyHP(EnemyHP)),
+	retract(enemyAtk(EnemyAtk)),
+    	retract(enemyDfs(EnemyDfs)),
+    	retract(enemyExp(EnemyExp)),
 	retract(isBattle),
 
-    /*membaca data musuh(enemy)*/
-    read(Stream, New_EnemyHP),
-    read(Stream, New_EnemyAtk),
-    read(Stream, New_EnemyDfs),
+    	/*membaca data musuh(enemy)*/
+    	read(Stream, New_EnemyHP),
+    	read(Stream, New_EnemyAtk),
+    	read(Stream, New_EnemyDfs),
 	read(Stream, New_EnemyExp),
 
-    asserta(enemyHP(New_EnemyHP)),
-    asserta(enemyAtk(New_EnemyAtk)),
-    asserta(enemyDfs(New_EnemyDfs)),
-    asserta(enemyExp(New_EnemyExp)),
+    	asserta(enemyHP(New_EnemyHP)),
+    	asserta(enemyAtk(New_EnemyAtk)),
+    	asserta(enemyDfs(New_EnemyDfs)),
+    	asserta(enemyExp(New_EnemyExp)),
    	asserta(isBattle),
 
-    write('Data has been  successfully loaded!'), nl,
+    	write('Data has been  successfully loaded!'), nl,
 	close(Stream).
 
 
 
-save_game(namafile):-
+	save_game(namafile):-
 	/* save file */
 
 	open(namafile, write, Stream),
@@ -199,10 +199,10 @@ save_game(namafile):-
 	noMap,
 
 	enemyHP(EnemyHP),
-    enemyAtk(EnemyAtk),
-    enemyDfs(EnemyDfs),
-    enemyExp(EnemyExp),
-    isBattle,
+    	enemyAtk(EnemyAtk),
+    	enemyDfs(EnemyDfs),
+    	enemyExp(EnemyExp),
+    	isBattle,
 
 	/* menulis data player */
 	write(Stream, Exp), 			write(Stream, '.'), nl(Stream),
@@ -211,36 +211,36 @@ save_game(namafile):-
 	write(Stream, Attack), 			write(Stream, '.'), nl(Stream),
 	write(Stream, Defense), 		write(Stream, '.'), nl(Stream),
 	write(Stream, AttInv), 			write(Stream, '.'), nl(Stream),
-	write(Stream, DefInv), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Health), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, BatasExp), 		write(Stream, '.'), nl(Stream),
-    write(Stream, BatasHP), 		write(Stream, '.'), nl(Stream),
-    write(Stream, Job), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Amount), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Quest1), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Quest2), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Quest3), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Enemy1), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Enemy2), 		    write(Stream, '.'), nl(Stream),
-    write(Stream, Enemy3), 		    write(Stream, '.'), nl(Stream),
+	write(Stream, DefInv), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Health), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, BatasExp), 		write(Stream, '.'), nl(Stream),
+    	write(Stream, BatasHP), 		write(Stream, '.'), nl(Stream),
+    	write(Stream, Job), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Amount), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Quest1), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Quest2), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Quest3), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Enemy1), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Enemy2), 		    	write(Stream, '.'), nl(Stream),
+    	write(Stream, Enemy3), 		    	write(Stream, '.'), nl(Stream),
 
 	/* menulis data map */
 	write(Stream, PanjangMap), 		write(Stream, '.'), nl(Stream),
 	write(Stream, LebarMap), 		write(Stream, '.'), nl(Stream),
-	write(Stream, Nama), 		    write(Stream, '.'), nl(Stream),
-	write(Stream, [X,Y]), 		    write(Stream, '.'), nl(Stream),
-	write(Stream, Battle), 	    	write(Stream, '.'), nl(Stream),
-	write(Stream, BanyakMusuh), 	write(Stream, '.'), nl(Stream),
-	write(Stream, StorePosition), 	write(Stream, '.'), nl(Stream),
-	write(Stream, QuestPosition), 	write(Stream, '.'), nl(Stream),
-	write(Stream, DungeonPosition),	write(Stream, '.'), nl(Stream),
-	write(Stream, PlayerPosition), 	write(Stream, '.'), nl(Stream),
+	write(Stream, Nama), 		    	write(Stream, '.'), nl(Stream),
+	write(Stream, [X,Y]), 		    	write(Stream, '.'), nl(Stream),
+	write(Stream, Battle), 	    		write(Stream, '.'), nl(Stream),
+	write(Stream, BanyakMusuh), 		write(Stream, '.'), nl(Stream),
+	write(Stream, StorePosition), 		write(Stream, '.'), nl(Stream),
+	write(Stream, QuestPosition), 		write(Stream, '.'), nl(Stream),
+	write(Stream, DungeonPosition),		write(Stream, '.'), nl(Stream),
+	write(Stream, PlayerPosition), 		write(Stream, '.'), nl(Stream),
 
 	/*menulis data musuh(enemy)*/
 	write(Stream, EnemyHP), 		write(Stream, '.'), nl(Stream),
 	write(Stream, EnemyAtk), 		write(Stream, '.'), nl(Stream),
-	write(Stream, EnemyDfs), 		    write(Stream, '.'), nl(Stream),
-	write(Stream, EnemyExp), 		    write(Stream, '.'), nl(Stream),
+	write(Stream, EnemyDfs), 		write(Stream, '.'), nl(Stream),
+	write(Stream, EnemyExp), 		write(Stream, '.'), nl(Stream),
 
 	write('Data has been saved successfully !'), nl,
 	close(Stream).
