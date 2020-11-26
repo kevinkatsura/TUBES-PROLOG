@@ -18,7 +18,7 @@ start   :-  noStart,!,retract(noStart),asserta(isStart),
             legenda.
 
 /* LEGENDA */
-legenda:- corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,legenda9,corner(100).
+legenda:- corner(100),judulLegenda,legenda1,legenda2,legenda3,legenda4,legenda5,legenda6,legenda7,legenda8,corner(100).
             
 judulLegenda:-  write('%'),
                 tab(36),
@@ -70,12 +70,6 @@ legenda7    :-  write('%'),
                 nl.
 legenda8    :-  write('%'),
                 tab(2),
-                write('8. Status : menampilkan status pemain'),
-                tab(59),
-                write('%'),
-                nl.
-legenda9    :-  write('%'),
-                tab(2),
                 write('8. help   : menampilkan segala bantuan'),
                 tab(58),
                 write('%'),
@@ -91,7 +85,7 @@ corner(1):- write('%'),nl.
 /* PLAY GAME */ 
 play   :-   isStart,!,noPlay,!,
             retract(noPlay), asserta(isPlay),
-            mapAwal,
+            mapAwal,nl,
             write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,

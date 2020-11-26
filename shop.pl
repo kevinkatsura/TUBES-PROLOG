@@ -16,11 +16,12 @@ count('Fire Arrow (Archer)',0).
 count('Magic Wand (Sorcerer)',0).
 
 /*Menampilkan pilihan transaksi*/
-shop:- 	isPlay,getStore,!,asserta(isShop),retract(isPlay),
+shop:- 	isPlay,!,playerPosition([X,Y]),isStorePosition(X,Y),
+		!,asserta(isShop),retract(isPlay),nl,
 		write('What do you want to buy?'),nl,
 		write('1. Gacha (1000 gold)'),nl,
 		write('2. Health Potion (100 gold)'),nl,
-		write('3. Magic Vision (100 gold)'),nl.
+		write('3. Magic Vision (100 gold)'),nl,!.
 
 /*Melakukan pembelian item yang telah dirandom apabila uang mencukupi*/
 gacha:- isShop,
@@ -60,7 +61,7 @@ vision:-	isShop,gold(Y),!,Y>=100,beliVision,!.
 beliVision:-	amount(A), A=100,
 				write('Your inventory is full, transaction canceled.'),nl,!.
 beliVision:-	amount(A), A<100, 
-				write('You get Magic Vision.'),
+				write('You get Magic Vision.'),nl,
 				count('Magic Vision',Y),Z is Y+1,asserta(count('Magic Vision',Z)),
 				gold(X),M is (X-100), asserta(gold(M)),
 				B is A+1,asserta(amount(B)).
@@ -110,8 +111,8 @@ items(X):-	X=:=6,job('archer'),
 			upAttInv(15),!.
 
 /*Keluar dari shop*/
-exitShop:-	isShop,!,retract(isShop),retract(getStore),write('Thanks for coming.'),nl, 
-			asserta(isPlay),d.
+exitShop:-	isShop,!,retract(isShop),write('Thanks for coming.'),nl, 
+			asserta(isPlay),s.
 
 /*Menampilkan inventory ke layar*/
 inventory:- isShop,!,nl,write('Your inventory:'),nl,

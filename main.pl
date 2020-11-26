@@ -56,14 +56,16 @@ quest:- isPlay,adaQuest,nl,write('Your quest: '),nl,nl,
 		write('Beat wolf '),write(Z),write('/'),write(W),nl,!.
 quest:- isPlay,noQuest,nl,write('You have no quest.'),nl,!.
 
-isOver:-	adaQuest,!,retract(adaQuest),asserta(noQuest),
-			enemy(X,Y,Z),!,quest(S,G,W),!,X>=S,Y>=G,Z>=W,asserta(enemy(0,0,0)),
-			nl,write('Well done!! Your quest is completed.'),nl,
-			Exp is (20*S+30*G+40*W), Gold is (150*S+200*G+250*W),
-			nl,write('Your reward: '),nl,
-			write(Exp),write(' EXP + '),write(Gold),write(' Gold'),nl,
-			upGold(Gold),upExp(Exp),!.
-isOver:- write('').
+isOver:- enemy(X,Y,Z),!,quest(S,G,W),!,cekOver(X,Y,Z,S,G,W).
+
+cekOver(X,Y,Z,S,G,W):-	X>=S,Y>=G,Z>=W, 
+						nl,nl,write('Well done!! Your quest is completed.'),nl,
+						Exp is (20*S+30*G+40*W), Gold is (150*S+200*G+250*W),
+						nl,write('Your reward: '),nl,
+						write(Exp),write(' EXP + '),write(Gold),write(' Gold'),nl,
+						upGold(Gold),upExp(Exp),
+						retract(adaQuest),asserta(noQuest),!.
+cekOver(_X,_Y,_Z,_S,_G,_W):- write(''),!.
 
 seeEnemy:-	isPlay,count('Magic Vision',X),!,adaVision(X).
 adaVision(X):-	X=0,nl,write('You don\'t have any Magic Vision.'),nl,!.

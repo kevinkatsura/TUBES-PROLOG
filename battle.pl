@@ -10,24 +10,24 @@ levelM(3).
 
 
 found(X):-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a '),write(X),nl,
-		write('Level: '),write(Y),nl,
-		write('Health: '),write(R),nl,
-		write('Attack: '),write(S),nl,
-		write('Defense: '),write(T),nl,nl,
-		write('What will you do?'),asserta(isBattle),!.	
+			write('Level: '),write(Y),nl,
+			write('Health: '),write(R),nl,
+			write('Attack: '),write(S),nl,
+			write('Defense: '),write(T),nl,nl,
+			write('What will you do?'),asserta(isBattle),retract(isPlay).	
 
 foundDungeon:-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a dungeon'),nl,
-		write('Level: '),write(Y),nl,
-		write('Health: '),write(R),nl,
-		write('Attack: '),write(S),nl,
-		write('Defense: '),write(T),nl,nl,
-		write('What will you do?'),asserta(isBattle).
+				write('Level: '),write(Y),nl,
+				write('Health: '),write(R),nl,
+				write('Attack: '),write(S),nl,
+				write('Defense: '),write(T),nl,nl,
+				write('What will you do?'),asserta(isBattle),retract(isPlay).
 
 statusEnemy(X):-	X=='goblin',
-			asserta(enemyHP(200)),
-			asserta(enemyAtk(100)),
-			asserta(enemyDfs(60)),
-			asserta(enemyExp(60)),!.
+				asserta(enemyHP(200)),
+				asserta(enemyAtk(100)),
+				asserta(enemyDfs(60)),
+				asserta(enemyExp(60)),!.
 statusEnemy(X):-	X=='slime',
 			asserta(enemyHP(100)),
 			asserta(enemyAtk(60)),
@@ -45,81 +45,85 @@ statusEnemy(X):-	X=='boss',
 			asserta(enemyExp(100)),!.
 
 enemyTurn(X):-	isBattle,
-		X=:=4,getSpecialAttack,!.
+				X=:=4,getSpecialAttack,!.
 
 enemyTurn(X):-	isBattle,
-		X=\=4,
-		defense(Y),defInv(D),
-		enemyAtk(Z),!,
-		S is round(Z-(0.8*(Y+D))),getAttack(S),!.
+				X=\=4,
+				defense(Y),defInv(D),
+				enemyAtk(Z),!,
+				S is round(Z-(0.8*(Y+D))),getAttack(S),!.
 
 cekDead(X):-	X=<0,!,
-		enemyExp(Y),retract(isBattle),
-		write('you earn '),
-		write(Y),write(' exp'),
-		upExp(Y),musuh(X,_Y),cekQuest(X).
-
+				enemyExp(Y),retract(isBattle),asserta(isPlay),
+				write('You earn '),
+				write(Y),write(' EXP'),
+				upExp(Y),theMusuh(A),cekQuest(A),!.
 
 cekDead(X):-	X>0,!,random(1,5,Y),
-		enemyTurn(Y).
+				enemyTurn(Y),!.
 
 cekQuest(X):-	adaQuest,X=='slime',
-		enemy(A,B,C),D is A+1,
-		asserta(enemy(D,B,C)),isOver,!.
+				enemy(A,B,C),D is A+1,
+				asserta(enemy(D,B,C)),isOver,!.
 cekQuest(X):-	adaQuest,X=='goblin',
-		enemy(A,B,C),D is B+1,
-		asserta(enemy(A,D,C)),isOver,!.
+				enemy(A,B,C),D is B+1,
+				asserta(enemy(A,D,C)),isOver,!.
 cekQuest(X):-	adaQuest,X=='wolf',
-		enemy(A,B,C),D is C+1,
-		asserta(enemy(A,B,D)),isOver,!.
+				enemy(A,B,C),D is C+1,
+				asserta(enemy(A,B,D)),isOver,!.
 
 
 attack:-	isBattle,attack(X),attInv(A),
-		enemyDfs(Y),
-		enemyHP(Z),!,
-		S is round((X+A)-(0.8*Y)),
-		T is Z-S,
-		write('You deal '),write(S),write(' damage'),nl,
-		asserta(enemyHP(T)),chance(C),D is C-1,asserta(chance(D)),
-		cekDead(T),!.
+			enemyDfs(Y),
+			enemyHP(Z),!,
+			S is round((X+A)-(0.8*Y)),
+			T is Z-S,
+			write('You deal '),write(S),write(' damage'),nl,
+			asserta(enemyHP(T)),chance(C),D is C-1,asserta(chance(D)),
+			cekDead(T),!.
 
 specialAttack:-	isBattle,chance(X),doSpecialAttack(X),!.
 
 doSpecialAttack(B):-	B=<1,attack(X),attInv(A),
-			enemyDfs(Y),
-			enemyHP(Z),!,
-			S is round(((X+A)*2)-(0.8*Y)),
-			T is Z-S,
-			write('You deal '),write(S),write(' damage'),nl,
-			asserta(enemyHP(T)),asserta(chance(3)),cekDead(T),!.
+						enemyDfs(Y),
+						enemyHP(Z),!,
+						S is round(((X+A)*2)-(0.8*Y)),
+						T is Z-S,
+						write('You deal '),write(S),write(' damage'),nl,
+						asserta(enemyHP(T)),asserta(chance(3)),cekDead(T),!.
 
 doSpecialAttack(X):-	X>1,write('You can\'t use special attack'),nl,Y is X-1,
-			asserta(chance(Y)),
-			enemyHP(Z),cekDead(Z),!.
+						asserta(chance(Y)),
+						enemyHP(Z),cekDead(Z),!.
+
+cekMati(X):-	X=<0,write('You are dead.'),nl,
+				write('Would you like to play again?(y/n)'),nl,hapus,!.
+
+cekMati(X):-	X>0,write(''),!.
 
 getAttack(S):-	S>0,
-		health(X),
-		T is X-S,
-		write('Monster deal '),
-		write(S),write(' damage'),
-		asserta(health(T)),!.
+				health(X),
+				T is X-S,
+				write('Monster deal '),
+				write(S),write(' damage'),
+				asserta(health(T)),cekMati(T),!.
 getAttack(S):-	S=<0,write('Monster deal no damage '),nl,!.
 
 getSpecialAttack:-	health(X),
-			defense(Y),defInv(D),
-			enemyAtk(Z),!,
-			S is round((Z*2)-(0.8*(Y+D))),
-			T is X-S,
-			write('Monster deal '),
-			write(S),write(' damage'),
-			asserta(health(T)).
+					defense(Y),defInv(D),
+					enemyAtk(Z),!,
+					S is round((Z*2)-(0.8*(Y+D))),
+					T is X-S,
+					write('Monster deal '),
+					write(S),write(' damage'),
+					asserta(health(T)),cekMati(T).
 	
-canRun(X):-	X=:=3, write('you are lucky, you can run'),
-		retract(isBattle),!.
+canRun(X):-	X=:=3, write('You are lucky, you can run'),
+			retract(isBattle),!.
 
-canRun(X):-	X=\=3,write('you can\'t run'),nl,random(1,5,Y),
-		enemyTurn(Y),!.
+canRun(X):-	X=\=3,write('You can\'t run'),nl,random(1,5,Y),
+			enemyTurn(Y),!.
 
-run:-		isBattle,random(1,5,X),
+run:-	isBattle,random(1,5,X),
 		canRun(X).
 

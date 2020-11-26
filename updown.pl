@@ -1,24 +1,4 @@
 /************************************ UPGRADE DAN DOWNGRADE ***********************************/ 
-
-:-dynamic(exp/1).
-:-dynamic(level/1).
-:-dynamic(gold/1).
-:-dynamic(attack/1).
-:-dynamic(defense/1).
-:-dynamic(health/1).
-:-dynamic(batasExp/1).
-:-dynamic(batasHP/1).
-:-dynamic(attInv/1).
-:-dynamic(defInv/1).
-
-attInv(0).
-defInv(0).
-job(swordsman).
-exp(0).
-level(1).
-gold(1000).
-health(1000).
-
 upAttInv(X):-	attInv(Y),!,
 		Y1 is Y+X,
 		asserta(attInv(Y1)).
@@ -121,40 +101,37 @@ maxExp:-	job(sorcerer),
 		asserta(defense(50)).
 
 
-/*naikLevel:-	exp(Y1),!,
-		maxExp,
-		batasExp(S),!,
-		Y1<S,write(''),!.*/
+naikLevel(Y1,R):-	Y1<R,write(''),!.
 
-naikLevel:-	exp(Y1),!,
-		maxExp,
-		batasExp(S),!,
-		Y1>=S,
-		Y2 is Y1-S,
-		level(Z),
-		Z1 is Z+1,
-		asserta(level(Z1)),
-		maxExp,
-		batasHP(R),
-		asserta(exp(Y2)),
-		asserta(health(R)),!.
+naikLevel(Y1,R):-	Y1>=R,
+					Y2 is Y1-R,
+					level(Z),
+					Z1 is Z+1,
+					asserta(level(Z1)),
+					nl,write('Congratulations!! Level up!'),nl,
+					maxExp,
+					batasHP(T),
+					asserta(exp(Y2)),
+					asserta(health(T)),status,!.
 
 
 upExp(X):-	exp(Y),!,
-		Y1 is Y+X,
-		asserta(exp(Y1)),
-		naikLevel.
+			Y1 is Y+X,
+			asserta(exp(Y1)),
+			maxExp,
+			batasExp(R),
+			naikLevel(Y1,R),!.
 
 
 upGold(X):-	gold(Y),
-		Y1 is Y+X,
-		asserta(gold(Y1)).
+			Y1 is Y+X,
+			asserta(gold(Y1)).
 upAttack(X):-	attack(Y),
-		Y1 is Y+X,
-		asserta(attack(Y1)).
+				Y1 is Y+X,
+				asserta(attack(Y1)).
 upDefense(X):-	defense(Y),
-		Y1 is Y+X,
-		asserta(defense(Y1)).
+				Y1 is Y+X,
+				asserta(defense(Y1)).
 upHealth(X):-	health(Y),
 		Y1 is Y+X,
 		asserta(health(Y1)).
@@ -164,27 +141,27 @@ downHealth(X):-	health(Y),
 		asserta(health(Y1)).
 
 
-status:-	write('Your Status: '),nl,
-		maxExp,
-		job(Q),
-		level(S),
-		health(T),
-		attack(U),
-		defense(V),
-		exp(W),
-		gold(X),
-		batasHP(Z),
-		batasExp(Y),
-		write('Job: '),
-		write(Q),nl,
-		write('Level: '),
-		write(S),nl,
-		write('Health: '),
-		write(T),write('/'),write(Z),nl,
-		write('Attack: '),
-		write(U),nl,
-		write('Defense: '),
-		write(V),nl,
-		write('Exp: '),
-		write(W),write('/'),write(Y),nl,
-		write('Gold: '), write(X),nl,!. 
+status:-	isPlay,nl,write('Your Status: '),nl,nl,
+			maxExp,
+			job(Q),
+			level(S),
+			health(T),
+			attack(U),
+			defense(V),
+			exp(W),
+			gold(X),
+			batasHP(Z),
+			batasExp(Y),
+			write('Job: '),
+			write(Q),nl,
+			write('Level: '),
+			write(S),nl,
+			write('Health: '),
+			write(T),write('/'),write(Z),nl,
+			write('Attack: '),
+			write(U),nl,
+			write('Defense: '),
+			write(V),nl,
+			write('Exp: '),
+			write(W),write('/'),write(Y),nl,
+			write('Gold: '), write(X),nl,!. 
