@@ -96,14 +96,29 @@ doSpecialAttack(X):-	X>1,write('You can\'t use special attack'),nl,Y is X-1,
 						asserta(chance(Y)),
 						enemyHP(Z),cekDead(Z),!.
 
-cekMati(X):-	X=<0,showDead,/*write('You are dead.'),*/nl,
+cekMati(X):-	X=<0,showDead,nl,
 				write('Would you like to play again?(y/n)'),nl,
 				write('>'),read(I),cekInput(I).
 cekMati(X):-	X>0,write(''),!.
-cekInput(I):- I=='y',hapus,asserta(noStart),start,!.
+cekInput(I):- I=='y',hapus,hapusStatus,start,!.
 cekInput(I):- I=='n',quit,!.
 
-
+hapusStatus:-	retractall(chance(_X)),retractall(enemyHP(_Y)),retractall(enemyAtk(_Z)),retractall(enemyDfs(_A)),
+				retractall(enemyExp(_B)),retract(isBattle),retractall(level(_C)),retractall(attack(_D)),
+				retractall(exp(_E)),retractall(defense(_F)),retractall(gold(_G)),retractall(health(_H)),retractall(attInv(_J)),retractall(defInv(_K)),
+				retractall(batasHP(_I)),asserta(exp(0)),asserta(attack(100)),asserta(level(1)),asserta(gold(1000)),
+				asserta(health(1000)),asserta(attInv(0)),asserta(defInv(0)),asserta(noStart),asserta(noPlay),asserta(noMap),
+				retractall(count(_L,_M)),asserta(count('Wooden Sword (Swordsman)',1)),
+				asserta(count('Wooden Bow (Archer)',1)),
+				asserta(count('Magic Book (Sorcerer)',1)),
+				asserta(count('Health Potion',3)),
+				asserta(count('Magic Vision',0)),
+				asserta(count('Iron Armor',0)),
+				asserta(count('Iron Helmet',0)),
+				asserta(count('Iron Shield',0)),
+				asserta(count('Excalibur (Swordsman)',0)),
+				asserta(count('Fire Arrow (Archer)',0)),
+				asserta(count('Magic Wand (Sorcerer)',0)),!.
 
 getAttack(S):-	S>0,
 				health(X),
