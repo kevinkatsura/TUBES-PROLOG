@@ -91,6 +91,7 @@ corner(1):- write('%'),nl.
 /* PLAY GAME */ 
 play   :-   isStart,!,noPlay,!,
             retract(noPlay), asserta(isPlay),
+            mapAwal,
             write('Welcome to Genshin Asik. Choose your job'),nl,
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,

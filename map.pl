@@ -37,7 +37,7 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),
+		musuh(C,[A,B]),nl,
 		write('-->>> There is a '),write(C),nl,nl,
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
@@ -72,7 +72,7 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),
+		musuh(C,[A,B]),nl,
 		write('-->>> There is a '),write(C),nl,nl,
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
@@ -107,7 +107,7 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),
+		musuh(C,[A,B]),nl,
 		write('-->>> There is a '),write(C),nl,nl,
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
@@ -142,7 +142,7 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		musuh(C,[A,B]),
+		musuh(C,[A,B]),nl,
 		write('-->>> There is a '),write(C),nl,nl,
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
@@ -420,7 +420,7 @@ describeMap2	:-	panjangMap(Panjang),
 					Pjg is Panjang+1,
 					Lbr is Lebar+1,
 					nl,write('-->> Map of God'),nl,
-					write('-->> Let see who you are!'),nl,nl,
+					write('-->> Let\'s see who you are!'),nl,nl,
 					printMap2(Pjg,Lbr),!.
 
 /*Print Map Tanpa Enemy*/
@@ -567,18 +567,20 @@ hapus 				:-	hapusMap,
 						hapusE,
 						hapusBanyakMusuh,!.
 
-map:-	isPlay, noMap,!,retract(noMap), 
-		randomMap, dungeon, store, questP, player, makeMusuhAwal, describeMap1.
+mapAwal:-isPlay, noMap,!,retract(noMap), 
+		randomMap, dungeon, store, questP, player, makeMusuhAwal.
 map:-	isPlay,
 		describeMap1,!.
 
 teleport:- hapusPlayer,player.
 teleportS	:-	hapusPlayer,
 				storePosition([X1,Y1]),
-				asserta(playerPosition([X1,Y1])).
+				asserta(playerPosition([X1,Y1])),
+				asserta(getStore).
 teleportQ	:-	hapusPlayer,
 				questPosition([X1,Y1]),
-				asserta(playerPosition([X1,Y1])).
+				asserta(playerPosition([X1,Y1])),
+				getQuest.
 teleportD	:-	hapusPlayer,
 				dungeonPosition([X1,Y1]),
 				asserta(playerPosition([X1,Y1])).
