@@ -44,7 +44,10 @@ enemyTurn(X):-	isBattle,
 		X=:=4,getSpecialAttack,!.
 
 enemyTurn(X):-	isBattle,
-		X=\=4,getAttack,!.
+		X=\=4,
+		defense(Y),
+		enemyAtk(Z),!,
+		S is round(Z-(0.8*Y)),getAttack(S),!.
 
 cekDead(X):-	X=<0,!,
 		enemyExp(Y),retract(isBattle),
@@ -72,14 +75,13 @@ specialAttack:-	isBattle,attack(X),
 		write('You deal '),write(S),write(' damage'),nl,
 		asserta(enemyHP(T)),cekDead(T).
 
-getAttack:-	health(X),
-		defense(Y),
-		enemyAtk(Z),!,
-		S is round(Z-(0.8*Y)),
+getAttack(S):-	S>0,
+		health(X),
 		T is X-S,
 		write('Monster deal '),
 		write(S),write(' damage'),
-		asserta(health(T)).
+		asserta(health(T)),!.
+getAttack(S):-	S=<0,write('Monster deal no damage '),nl,!.
 
 getSpecialAttack:-	health(X),
 			defense(Y),
