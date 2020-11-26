@@ -101,7 +101,49 @@ playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
                 asserta(job('sorcerer')),!. 
 
 /* HELP */
-help:- nl,write('Need help? Read instructions below: '),nl,nl,
-        legenda.
+helpPlayGuide   :-  write('%'),
+                    tab(42),
+                    write('-- PLAY GUIDE --'),
+                    tab(42),
+                    write('%'),
+                    nl.
+help1   :-  tab(6),write('% 1.  shop              : untuk masuk ke shop, anda harus memanggil \'shop.\' ketika telah berada pada posisi shop.                                                               %').
+help2   :-  tab(6),write('% 2.  exitShop          : gunakan perintah \'exitShop.\' untuk keluar dari shop. Setiap selesai dari shop wajib memanggil perintah ini.                                           %').
+help3   :-  tab(6),write('% 3.  teleportM         : gunakan perintah \'teleportM.\' untuk berpindah Map.                                                                                                    %').
+help4   :-  tab(6),write('% 4.  teleportP         : gunakan perintah \'teleportP.\' untuk berpindah tempat pada Map yang sama.                                                                              %').
+help5   :-  tab(6),write('% 5.  teleportS         : gunakan perintah \'teleportS.\' untuk langsung mengunjungi shop.                                                                                        %').
+help6   :-  tab(6),write('% 6.  teleportQ         : gunakan perintah \'teleportQ.\' untuk langsung mengunjungi Quest dan langsung mendapatkan Quest.                                                        %').
+help7   :-  tab(6),write('% 7.  teleportD         : gunakan perintah \'teleportD.\' untuk langsung mengunjungi Dungeon Boss.                                                                                %').
+help8   :-  tab(6),write('% 8.  attack/run        : ketika menemui attack/run, ketik \'attack.\' untuk menyerang musuh atau \'run.\' untuk menghindari musuh.                                                 %').
+help9   :-  tab(6),write('% 9.  specialAttack     : ketika dalam battle, gunakan perintah \'specialAttack.\' untuk memberikan Attack Spesial pada musuh yg hanya dapat digunakan 1 kali dalam 3 battlefield.%').
+help10  :-  tab(6),write('% 10. gacha             : gunakan perintah\'gacha.\' ketika berada di shop untuk membeli Gacha.                                                                                   %').
+help11  :-  tab(6),write('% 11. potion            : gunakan perintah \'potion.\' ketika berada di shop untuk membeli Health Potion.                                                                         %').
+help12  :-  tab(6),write('% 12. vision            : gunakan perintah \'vision.\' ketika berada di shop untuk membeli Magic Vision.                                                                          %').
+help13  :-  tab(6),write('% 13. inventory         : gunakan perintah \'inventory.\' untuk menampilkan isi inventory kamu.                                                                                   %').
+help14  :-  tab(6),write('% 14. usePotion         : gunakan perintah \'usePotion.\' untuk menggunakan Health Potion jika tersedia.                                                                          %').
+help15  :-  tab(6),write('% 15. seeEnemy          : gunakan perintah \'seeEnemy.\' untuk melihat Enemy pada map jika memiliki Magic Vision.                                                                 %').
+
+
+
+helpTambahan    :-  corner(189),
+                    help1,nl,
+                    help2,nl,
+                    help3,nl,
+                    help4,nl,
+                    help5,nl,
+                    help6,nl,
+                    help7,nl,
+                    help8,nl,
+                    help9,nl,
+                    help10,nl,
+                    help11,nl,
+                    help12,nl,
+                    help13,nl,
+                    help14,nl,
+                    help15,nl,
+                    corner(189),nl.
+help:- nl,write('Need a help? Read instructions below: '),nl,nl,
+        legenda,nl,nl,helpTambahan,nl,nl.
 
 quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl.
+

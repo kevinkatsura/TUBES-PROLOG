@@ -13,8 +13,8 @@ noMap.
 
 /*		MOVEMENT		*/
 /*	W 	*/
-w 	:- 	playerPosition([X,Y]), A is X+1, isTopBorder(A,Y),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
+w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isTopBorder(A,Y),!.
+w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -22,17 +22,17 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
 		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),
+w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
+w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
+w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -41,15 +41,15 @@ w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
 		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-w 	:- 	playerPosition([X,Y]), 
+w 	:- 	isPlay,playerPosition([X,Y]), 
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	A 	*/
-a 	:- 	playerPosition([X,Y]), B is Y+1, isLeftBorder(X,B),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
+a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isLeftBorder(X,B),!.
+a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -57,17 +57,17 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
 		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),
+a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
+a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
+a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -76,15 +76,15 @@ a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-a 	:- 	playerPosition([X,Y]), 
+a 	:- 	isPlay,playerPosition([X,Y]), 
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	S 	*/
-s 	:- 	playerPosition([X,Y]), A is X-1, isBottomBorder(A,Y),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
+s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isBottomBorder(A,Y),!.
+s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -92,17 +92,17 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
 		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),
+s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
+s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
+s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
@@ -111,15 +111,15 @@ s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-s 	:- 	playerPosition([X,Y]), 
+s 	:- 	isPlay,playerPosition([X,Y]), 
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	D 	*/
-d 	:- 	playerPosition([X,Y]), B is Y-1, isRightBorder(X,B),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
+d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isRightBorder(X,B),!.
+d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -127,17 +127,17 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
 		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
+d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
+d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
+d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -146,7 +146,7 @@ d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		write('-->>> There is a '),write(C),nl,nl, asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-d 	:- 	playerPosition([X,Y]), 
+d 	:- 	isPlay,playerPosition([X,Y]), 
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -575,7 +575,8 @@ mapAwal:-isPlay, noMap,!,retract(noMap),
 map:-	isPlay,
 		describeMap1,!.
 
-teleport:- isPlay,hapusPlayer,player.
+teleportP	:- isPlay,hapusPlayer,player.
+teleportM	:-	isPlay, hapus,randomMap,dungeon,store,questP,player,makeMusuhAwal.
 teleportS	:-	isPlay, 
 				hapusPlayer,
 				storePosition([X1,Y1]),
