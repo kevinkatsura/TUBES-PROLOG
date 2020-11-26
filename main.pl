@@ -3,6 +3,7 @@
 :- include('map.pl').
 :- include('shop.pl').
 :- include('updown.pl').
+:- include('battle.pl').
 
 /**** MENDEFINISIKAN VARIABEL GLOBAL ****/
 :-dynamic(isPlay/0).
@@ -37,16 +38,15 @@ amount(6).
 noQuest.
 enemy(0,0,0).
 
-getQuest:-	noQuest,retract(noQuest),nl,
+getQuest:-	noQuest,retract(noQuest),asserta(adaQuest),nl,
 			random(1,6,S), 
 			random(1,6,G),
 			random(1,6,W),asserta(quest(S,G,W)),
 			write('You\'ve got a quest: '),nl,
 			write('Beat '),write(S),write(' slime'),nl,
 			write('Beat '),write(G),write(' goblin'),nl,
-			write('Beat '),write(W),write(' wolf'),nl,
-			asserta(adaQuest),w,!. 
-getQuest:-	adaQuest,nl,
+			write('Beat '),write(W),write(' wolf'),nl,w,!. 
+getQuest:-	adaQuest,!,nl,
 			write('You\'ve got your quest. Finish it before taking another one. '),nl,w,!.
 
 quest:- isPlay,adaQuest,nl,write('Your quest: '),nl,nl,
@@ -62,4 +62,14 @@ isOver:-	adaQuest,!,retract(adaQuest),asserta(noQuest),
 			Exp is (20*S+30*G+40*W), Gold is (150*S+200*G+250*W),
 			nl,write('Your reward: '),nl,
 			write(Exp),write(' EXP + '),write(Gold),write(' Gold'),nl,
-			upGold(Gold),upExp(Exp).
+			upGold(Gold),upExp(Exp),!.
+isOver:- write('').
+
+seeEnemy:-	isPlay,count('Magic Vision',X),!,adaVision(X).
+adaVision(X):-	X=0,nl,write('You don\'t have any Magic Vision.'),nl,!.
+adaVision(X):-	X>0,describeMap2,
+				Y is X-1, asserta(count('Magic Vision',Y)),!.
+
+
+
+

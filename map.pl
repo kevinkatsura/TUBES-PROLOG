@@ -421,7 +421,7 @@ describeMap2	:-	panjangMap(Panjang),
 					Pjg is Panjang+1,
 					Lbr is Lebar+1,
 					nl,write('-->> Map of God'),nl,
-					write('-->> Let see who you are!'),nl,nl,
+					write('-->> Let\'s see who you are!'),nl,nl,
 					printMap2(Pjg,Lbr),!.
 
 /*Print Map Tanpa Enemy*/
@@ -568,8 +568,8 @@ hapus 				:-	hapusMap,
 						hapusE,
 						hapusBanyakMusuh,!.
 
-map:-	isPlay, noMap,!,retract(noMap), 
-		randomMap, dungeon, store, questP, player, makeMusuhAwal, describeMap1.
+mapAwal:-isPlay, noMap,!,retract(noMap), 
+		randomMap, dungeon, store, questP, player, makeMusuhAwal.
 map:-	isPlay,
 		describeMap1,!.
 

@@ -27,7 +27,7 @@ gacha:- isShop,
 		gold(Y),Y<1000,
 		write('You don\'t have enough money.'),nl,!.
 gacha:-	isShop, 
-		gold(Y),Y>=1000,beliGacha,!.
+		gold(Y),!,Y>=1000,beliGacha,!.
 
 beliGacha:- amount(A), A=100,
 			write('Your inventory is full, transaction canceled.'),nl,!.
@@ -41,7 +41,7 @@ beliGacha:-	amount(A), A<100,
 potion:-	isShop,
 			gold(Y),Y<100,
 			write('You don\'t have enough money.'),nl,!.
-potion:-	isShop,gold(Y),Y>=100,beliPotion,!.			
+potion:-	isShop,gold(Y),!,Y>=100,beliPotion,!.			
 
 beliPotion:-	amount(A), A=100,
 				write('Your inventory is full, transaction canceled.'),nl,!.
@@ -55,7 +55,7 @@ beliPotion:-	amount(A), A<100,
 vision:-	isShop,
 			gold(Y),Y<100,
 			write('You don\'t have enough money.'),nl,!.
-vision:-	isShop,gold(Y),Y>=100,beliVision,!.			
+vision:-	isShop,gold(Y),!,Y>=100,beliVision,!.			
 
 beliVision:-	amount(A), A=100,
 				write('Your inventory is full, transaction canceled.'),nl,!.
@@ -110,8 +110,8 @@ items(X):-	X=:=6,job('archer'),
 			upAttInv(15),!.
 
 /*Keluar dari shop*/
-exitShop:-	isShop,!,retract(isShop),retract(getStore),write('Thanks for coming.'), 
-			asserta(isPlay),w.
+exitShop:-	isShop,!,retract(isShop),retract(getStore),write('Thanks for coming.'),nl, 
+			asserta(isPlay),d.
 
 /*Menampilkan inventory ke layar*/
 inventory:- isShop,!,nl,write('Your inventory:'),nl,
@@ -139,5 +139,8 @@ inventory:- isPlay,!,nl,write('Your inventory:'),nl,
 			invent('Fire Arrow (Archer)'),
 			invent('Magic Wand (Sorcerer)').
 
-invent(X):-	count(X,Y),Y>0,write(Y),write(' '),write(X),nl,!.
-invent(X):- count(X,Y),Y=0,write(''),!.
+invent(X):-	count(X,Y),!,adaInvent(X,Y).
+
+adaInvent(X,Y):- Y>0,write(Y),write(' '),write(X),nl,!.
+adaInvent(_X,Y):- Y=0,write(''),!.
+

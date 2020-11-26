@@ -8,14 +8,24 @@
 :-dynamic(health/1).
 :-dynamic(batasExp/1).
 :-dynamic(batasHP/1).
+:-dynamic(attInv/1).
+:-dynamic(defInv/1).
+
+attInv(0).
+defInv(0).
 job(swordsman).
 exp(0).
-attack(0).
-defense(0).
 level(1).
 gold(1000).
 health(1000).
-batasHP(1000).
+
+upAttInv(X):-	attInv(Y),!,
+		Y1 is Y+X,
+		asserta(attInv(Y1)).
+
+upDefInv(X):-	defInv(Y),!,
+		Y1 is Y+X,
+		asserta(defInv(Y1)).
 
 maxExp:-	job(swordsman),
 		level(5),!,
@@ -110,6 +120,12 @@ maxExp:-	job(sorcerer),
 		asserta(attack(70)),
 		asserta(defense(50)).
 
+
+/*naikLevel:-	exp(Y1),!,
+		maxExp,
+		batasExp(S),!,
+		Y1<S,write(''),!.*/
+
 naikLevel:-	exp(Y1),!,
 		maxExp,
 		batasExp(S),!,
@@ -121,7 +137,7 @@ naikLevel:-	exp(Y1),!,
 		maxExp,
 		batasHP(R),
 		asserta(exp(Y2)),
-		asserta(health(R)).
+		asserta(health(R)),!.
 
 
 upExp(X):-	exp(Y),!,
@@ -171,7 +187,4 @@ status:-	write('Your Status: '),nl,
 		write(V),nl,
 		write('Exp: '),
 		write(W),write('/'),write(Y),nl,
-		write('Gold: '), write(X),nl. 
-		
-
-			
+		write('Gold: '), write(X),nl,!. 
