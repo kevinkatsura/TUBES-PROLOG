@@ -40,7 +40,7 @@ beliGacha:-	amount(A), A<100,
 			B is A+1,asserta(amount(B)),!.
 
 /*Melakukan pembelian potion apabila uang mencukupi dan kapasitas inventory memadai*/
-potion:-	isShop,gold(X),!,cekGacha(X).	
+potion:-	isShop,gold(X),!,cekPotion(X).	
 
 cekPotion(X):- X<100,nl,write('You don\'t have enough money.'),nl,!.
 cekPotion(X):- X>=100,beliPotion,!.
