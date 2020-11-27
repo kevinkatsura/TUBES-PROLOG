@@ -93,12 +93,34 @@ play   :-   isStart,!,noPlay,!,
             write('>'),read(X),nl,Y is X,playuser(Y).
 
 /* Menampilkan output sesuai input user */
-playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,nl,
-                asserta(job('swordsman')),!. 
-playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,nl,
-                asserta(job('archer')),!.
-playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,nl,
-                asserta(job('sorcerer')),!. 
+playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
+		asserta(job('swordsman')),!,
+		write('Continue the previous game?'),nl,
+		write('1. continue'),nl,
+		write('2. new game'),nl,
+		write('**==new game will delete the previous game==**'),nl,
+		write('>'),read(A),nl,Y is A,check1(Y).
+playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
+                asserta(job('archer')),!,
+		write('Continue the previous game?'),nl,
+		write('1. continue'),nl,
+		write('2. new game'),nl,
+		write('**==new game will delete the previous game==**'),nl,
+		write('>'),read(A),nl,Y is A,check2(Y).
+playuser(X) :-  X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
+                asserta(job('sorcerer')),!,
+		write('Continue the previous game?'),nl,
+		write('1. continue'),nl,
+		write('2. new game'),nl,
+		write('**==new game will delete the previous game==**'),nl,
+		write('>'),read(A),nl,Y is A,check3(Y). 
+
+check1(X):-      X=:=1,load_game('data1continue.txt'),status,!.
+check1(X):-      X=:=2,load_game('data1newgame.txt'),status,!.
+check2(X):-      X=:=1,load_game('data2continue.txt'),status,!.
+check2(X):-      X=:=2,load_game('data2newgame.txt'),status,!.
+check3(X):-      X=:=1,load_game('data3continue.txt'),status,!.
+check3(X):-      X=:=2,load_game('data3newgame.txt'),status,!.
 
 /* HELP */
 helpPlayGuide   :-  write('%'),
@@ -143,7 +165,14 @@ helpTambahan    :-  corner(189),
                     help14,nl,
                     help15,nl,
                     corner(189),nl.
-help:- nl,write('Need a help? Read instructions below: '),nl,nl
-        ,helpTambahan,nl,nl.
-quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl,halt.
+help:- nl,write('Need a help? Read instructions below: '),nl,nl,
+        legenda,nl,nl,helpTambahan,nl,nl.
+
+save_game:- job('swordsman'),save_game('data1continue.txt').
+save_game:- job('archer'),save_game('data2continue.txt').
+save_game:- job('sorcerer'),save_game('data3continue.txt').
+
+
+quit:- 	nl,save_game,nl,
+	write('Thank you for playing, see you!! ^_^ '),nl,halt.
 
