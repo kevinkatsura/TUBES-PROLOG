@@ -28,16 +28,19 @@ statusEnemy(X):-	X=='goblin',
 				asserta(enemyAtk(100)),
 				asserta(enemyDfs(60)),
 				asserta(enemyExp(60)),!.
+
 statusEnemy(X):-	X=='slime',
 			asserta(enemyHP(100)),
 			asserta(enemyAtk(60)),
 			asserta(enemyDfs(40)),
 			asserta(enemyExp(50)),!.
+
 statusEnemy(X):-	X=='wolf',
 			asserta(enemyHP(400)),
 			asserta(enemyAtk(130)),
 			asserta(enemyDfs(85)),
 			asserta(enemyExp(70)),!.
+			
 statusEnemy(X):-	X=='boss',
 			asserta(enemyHP(700)),
 			asserta(enemyAtk(150)),
@@ -57,7 +60,8 @@ cekDead(X):-	X=<0,!,
 				enemyExp(Y),retract(isBattle),asserta(isPlay),
 				write('You earn '),
 				write(Y),write(' EXP'),
-				upExp(Y),theMusuh(A),cekQuest(A),!.
+				upExp(Y),theMusuh(A),cekQuest(A),
+				!.
 
 cekDead(X):-	X>0,!,random(1,5,Y),
 				enemyTurn(Y),!.
@@ -103,7 +107,7 @@ cekMati(X):-	X>0,write(''),!.
 cekInput(I):- I=='y',hapus,hapusStatus,start,!.
 cekInput(I):- I=='n',quit,!.
 
-hapusStatus:-	retractall(chance(_X)),retractall(enemyHP(_Y)),retractall(enemyAtk(_Z)),retractall(enemyDfs(_A)),
+hapusStatus:-	retractall(chance(_X)),retractall(enemyHP(_Y)),retractall(enemyAtk(_Z)),retractall(enemyDfs(_A)),retractall(chance(_Za)),
 				retractall(enemyExp(_B)),retract(isBattle),retractall(level(_C)),retractall(attack(_D)),
 				retractall(exp(_E)),retractall(defense(_F)),retractall(gold(_G)),retractall(health(_H)),retractall(attInv(_J)),retractall(defInv(_K)),
 				retractall(batasHP(_I)),asserta(exp(0)),asserta(attack(100)),asserta(level(1)),asserta(gold(1000)),
@@ -118,7 +122,8 @@ hapusStatus:-	retractall(chance(_X)),retractall(enemyHP(_Y)),retractall(enemyAtk
 				asserta(count('Iron Shield',0)),
 				asserta(count('Excalibur (Swordsman)',0)),
 				asserta(count('Fire Arrow (Archer)',0)),
-				asserta(count('Magic Wand (Sorcerer)',0)),!.
+				asserta(count('Magic Wand (Sorcerer)',0)),
+				asserta(chance(1)),!.
 
 getAttack(S):-	S>0,
 				health(X),

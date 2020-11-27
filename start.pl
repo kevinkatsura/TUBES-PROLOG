@@ -145,5 +145,5 @@ helpTambahan    :-  corner(189),
 help:- nl,write('Need a help? Read instructions below: '),nl,nl,
         legenda,nl,nl,helpTambahan,nl,nl.
 
-quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl.
+quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl,halt.
 
