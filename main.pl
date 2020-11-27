@@ -4,7 +4,7 @@
 :- include('shop.pl').
 :- include('updown.pl').
 :- include('battle.pl').
-%:- include('load_save.pl').
+:- include('save_load.pl').
 
 /**** MENDEFINISIKAN VARIABEL GLOBAL ****/
 :-dynamic(isPlay/0).
