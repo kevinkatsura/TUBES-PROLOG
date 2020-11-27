@@ -94,12 +94,12 @@ play   :-   isStart,!,noPlay,!,
 
 /* Menampilkan output sesuai input user */
 playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
-		asserta(job('swordsman')),!,
-		write('Continue the previous game?'),nl,
+		asserta(job('swordsman')),!.
+		/*write('Continue the previous game?'),nl,
 		write('1. continue'),nl,
 		write('2. new game'),nl,
 		write('**==new game will delete the previous game==**'),nl,
-		write('>'),read(A),nl,Y is A,check1(Y).
+		write('>'),read(A),nl,Y is A,check1(Y).*/
 playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
                 asserta(job('archer')),!,
 		write('Continue the previous game?'),nl,
@@ -128,27 +128,46 @@ helpPlayGuide   :-  write('%'),
                     write('-- PLAY GUIDE --'),
                     tab(42),
                     write('%'),
-                    nl.
-help1   :-  tab(6),write('% 1.  shop              : untuk masuk ke shop, anda harus memanggil \'shop.\' ketika telah berada pada posisi shop.                                                               %').
-help2   :-  tab(6),write('% 2.  exitShop          : gunakan perintah \'exitShop.\' untuk keluar dari shop. Setiap selesai dari shop wajib memanggil perintah ini.                                           %').
-help3   :-  tab(6),write('% 3.  teleportM         : gunakan perintah \'teleportM.\' untuk berpindah Map.                                                                                                    %').
-help4   :-  tab(6),write('% 4.  teleportP         : gunakan perintah \'teleportP.\' untuk berpindah tempat pada Map yang sama.                                                                              %').
-help5   :-  tab(6),write('% 5.  teleportS         : gunakan perintah \'teleportS.\' untuk langsung mengunjungi shop.                                                                                        %').
-help6   :-  tab(6),write('% 6.  teleportQ         : gunakan perintah \'teleportQ.\' untuk langsung mengunjungi Quest dan langsung mendapatkan Quest.                                                        %').
-help7   :-  tab(6),write('% 7.  teleportD         : gunakan perintah \'teleportD.\' untuk langsung mengunjungi Dungeon Boss.                                                                                %').
-help8   :-  tab(6),write('% 8.  attack/run        : ketika menemui attack/run, ketik \'attack.\' untuk menyerang musuh atau \'run.\' untuk menghindari musuh.                                                 %').
-help9   :-  tab(6),write('% 9.  specialAttack     : ketika dalam battle, gunakan perintah \'specialAttack.\' untuk memberikan Attack Spesial pada musuh yg hanya dapat digunakan 1 kali dalam 3 battlefield.%').
-help10  :-  tab(6),write('% 10. gacha             : gunakan perintah\'gacha.\' ketika berada di shop untuk membeli Gacha.                                                                                   %').
-help11  :-  tab(6),write('% 11. potion            : gunakan perintah \'potion.\' ketika berada di shop untuk membeli Health Potion.                                                                         %').
-help12  :-  tab(6),write('% 12. vision            : gunakan perintah \'vision.\' ketika berada di shop untuk membeli Magic Vision.                                                                          %').
-help13  :-  tab(6),write('% 13. inventory         : gunakan perintah \'inventory.\' untuk menampilkan isi inventory kamu.                                                                                   %').
-help14  :-  tab(6),write('% 14. usePotion         : gunakan perintah \'usePotion.\' untuk menggunakan Health Potion jika tersedia.                                                                          %').
-help15  :-  tab(6),write('% 15. seeEnemy          : gunakan perintah \'seeEnemy.\' untuk melihat Enemy pada map jika memiliki Magic Vision.                                                                 %').
+                    nl. 
+                    
+headOfHelp1     :-      tab(6),write('%                                                                                                                                                                                 %').
+headOfHelp2     :-      tab(6),write('%                                                                                -- SURSURUPRISE --                                                                               %').
+help1   :-              tab(6),write('% 7.  shop              : untuk masuk ke shop, anda harus memanggil \'shop.\' ketika telah berada pada posisi shop.                                                               %').
+help2   :-              tab(6),write('% 8.  exitShop          : gunakan perintah \'exitShop.\' untuk keluar dari shop. Setiap selesai dari shop wajib memanggil perintah ini.                                           %').
+help3   :-              tab(6),write('% 9.  teleportM         : gunakan perintah \'teleportM.\' untuk berpindah Map.                                                                                                    %').
+help4   :-              tab(6),write('% 10. teleportP         : gunakan perintah \'teleportP.\' untuk berpindah tempat pada Map yang sama.                                                                              %').
+help5   :-              tab(6),write('% 11. teleportS         : gunakan perintah \'teleportS.\' untuk langsung mengunjungi shop.                                                                                        %').
+help6   :-              tab(6),write('% 12. teleportQ         : gunakan perintah \'teleportQ.\' untuk langsung mengunjungi Quest dan langsung mendapatkan Quest.                                                        %').
+help7   :-              tab(6),write('% 13. teleportD         : gunakan perintah \'teleportD.\' untuk langsung mengunjungi Dungeon Boss.                                                                                %').
+help8   :-              tab(6),write('% 14. attack/run        : ketika menemui attack/run, ketik \'attack.\' untuk menyerang musuh atau \'run.\' untuk menghindari musuh.                                               %').
+help9   :-              tab(6),write('% 15. specialAttack     : ketika dalam battle, gunakan perintah \'specialAttack.\' untuk memberikan Attack Spesial pada musuh yg hanya dapat digunakan 1 kali dalam 3 battlefield.%').
+help10  :-              tab(6),write('% 16. gacha             : gunakan perintah\'gacha.\' ketika berada di shop untuk membeli Gacha.                                                                                   %').
+help11  :-              tab(6),write('% 17. potion            : gunakan perintah \'potion.\' ketika berada di shop untuk membeli Health Potion.                                                                         %').
+help12  :-              tab(6),write('% 18. vision            : gunakan perintah \'vision.\' ketika berada di shop untuk membeli Magic Vision.                                                                          %').
+help13  :-              tab(6),write('% 19. inventory         : gunakan perintah \'inventory.\' untuk menampilkan isi inventory kamu.                                                                                   %').
+help14  :-              tab(6),write('% 20. usePotion         : gunakan perintah \'usePotion.\' untuk menggunakan Health Potion jika tersedia.                                                                          %').
+help15  :-              tab(6),write('% 21. seeEnemy          : gunakan perintah \'seeEnemy.\' untuk melihat Enemy pada map jika memiliki Magic Vision.                                                                 %').
+help16  :-              tab(6),write('% 22. HolyPotion        : gunakan perintah \'HolyPotion.\' ketika berada di shop untuk membeli Holy Potion.                                                                       %').
+help17  :-              tab(6),write('% 23. useHolyPotion     : gunakan perintah \'useHolyPotion.\' untuk menggunakan Holy Potion jika tersedia.                                                                        %').
+help18  :-              tab(6),write('% 1.  map               : menampilkan peta.                                                                                                                                       %').
+help19  :-              tab(6),write('% 2.  status            : menampilkan kondisimu terkini.                                                                                                                          %').
+help20  :-              tab(6),write('% 3.  w                 : gerak ke utara 1 langkah.                                                                                                                               %').
+help21  :-              tab(6),write('% 4.  s                 : gerak ke selatan 1 langkah.                                                                                                                             %').
+help22  :-              tab(6),write('% 5.  d                 : gerak ke ke timur 1 langkah.                                                                                                                            %').
+help23  :-              tab(6),write('% 6.  a                 : gerak ke barat 1 langkah.                                                                                                                               %').
 
 
 
 helpTambahan    :-  corner(189),
-                    legenda1,
+                    headOfHelp1,nl,
+                    headOfHelp2,nl,
+                    headOfHelp1,nl,
+                    help18,nl,
+                    help19,nl,
+                    help20,nl,
+                    help21,nl,
+                    help22,nl,
+                    help23,nl,
                     help1,nl,
                     help2,nl,
                     help3,nl,
@@ -164,9 +183,12 @@ helpTambahan    :-  corner(189),
                     help13,nl,
                     help14,nl,
                     help15,nl,
+                    help16,nl,
+                    help17,nl,
+                    headOfHelp1,nl,
                     corner(189),nl.
-help:- nl,write('Need a help? Read instructions below: '),nl,nl,
-        legenda,nl,nl,helpTambahan,nl,nl.
+help:-  nl,write('Need a help? Read instructions below: '),nl,nl,
+        helpTambahan,nl,nl.
 
 save_game:- job('swordsman'),save_game('data1continue.txt').
 save_game:- job('archer'),save_game('data2continue.txt').
@@ -174,5 +196,7 @@ save_game:- job('sorcerer'),save_game('data3continue.txt').
 
 
 quit:- 	nl,save_game,nl,
-	write('Thank you for playing, see you!! ^_^ '),nl,halt.
+	write(' >>> Thank you for playing, see you!! ^_^ '),nl,sleep(1),
+        write(' >>> Program will close in ....'),sleep(1),nl, write(' >>> 3 '),sleep(1),nl,write(' >>> 2, '),sleep(1),nl,write(' >>> 1.'),
+        halt.
 

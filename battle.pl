@@ -65,7 +65,7 @@ cekDead(X):-	X=<0,!,
 cekDead(X):-	X>0,!,random(1,5,Y),
 				enemyTurn(Y),!.
 
-cekBoss(A):-	A=='boss',tampilanSelamat,!.
+cekBoss(A):-	A=='boss',tampilanSelamat,nl,!.
 cekBoss(A):-	A\=='boss',!.
 
 cekQuest(X):-	adaQuest,X=='slime',
@@ -125,7 +125,9 @@ hapusStatus:-	retractall(chance(_X)),retractall(enemyHP(_Y)),retractall(enemyAtk
 				asserta(count('Excalibur (Swordsman)',0)),
 				asserta(count('Fire Arrow (Archer)',0)),
 				asserta(count('Magic Wand (Sorcerer)',0)),
-				asserta(chance(1)),!.
+				asserta(chance(1)),
+				asserta(defense(50)),
+				asserta(count('Holy Potion',0)),!.
 
 getAttack(S):-	S>0,
 				health(X),
@@ -163,17 +165,7 @@ showDead:-	nl,
 			write('           * ****   ** ****        ,*P * ****      **           * ****         ,**  * **** *  ****         * ****         ,**     '),nl,
 			write('           * ****    * ****       ,*P    ****     ,*P           * ****        ,**   * **** *  ****         * ****        ,**      '),nl,
 			write('           * ****      ****     ,**      ****   ,d*P            * ****    ,o**P     * **** *  ****         * ****    ,o**P        '),nl,
-			write('           * ****        *******P          Y*****P              * *********P        * **** *  ************ * *********P           '),nl,nl,nl,nl.
-		
+			write('           * ****        *******P          Y*****P              * *********P        * **** *  ************ * *********P           '),nl,nl,nl.
 
-tampilanSelamat:-
 
-	nl,nl,nl,nl,nl,
-	write('     ******   *******  **    **  ******   ********     ***    ******** **     ** **          ***    ******** ****  *******  **    **  ******      '),nl,
-	write('    **    ** **     ** ***   ** **    **  **     **   ** **      **    **     ** **         ** **      **     **  **     ** ***   ** **    **     '),nl,
-	write('    **       **     ** ****  ** **        **     **  **   **     **    **     ** **        **   **     **     **  **     ** ****  ** **           '),nl,
-	write('    **       **     ** ** ** ** **   **** ********  **     **    **    **     ** **       **     **    **     **  **     ** ** ** **  ******      '),nl,
-	write('    **       **     ** **  **** **    **  **   **   *********    **    **     ** **       *********    **     **  **     ** **  ****       **     '),nl,
-	write('    **    ** **     ** **   *** **    **  **    **  **     **    **    **     ** **       **     **    **     **  **     ** **   *** **    **     '),nl,
-	write('     ******   *******  **    **  ******   **     ** **     **    **     *******  ******** **     **    **    ****  *******  **    **  ******      '),nl,nl,nl.
 	
