@@ -126,6 +126,7 @@ help15  :-  tab(6),write('% 15. seeEnemy          : gunakan perintah \'seeEnemy.
 
 
 helpTambahan    :-  corner(189),
+                    legenda1,
                     help1,nl,
                     help2,nl,
                     help3,nl,
@@ -142,8 +143,7 @@ helpTambahan    :-  corner(189),
                     help14,nl,
                     help15,nl,
                     corner(189),nl.
-help:- nl,write('Need a help? Read instructions below: '),nl,nl,
-        legenda,nl,nl,helpTambahan,nl,nl.
-
+help:- nl,write('Need a help? Read instructions below: '),nl,nl
+        ,helpTambahan,nl,nl.
 quit:- nl,write('Thank you for playing, see you!! ^_^ '),nl,halt.
 

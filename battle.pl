@@ -16,7 +16,7 @@ found(X):-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a '),wr
 			write('Defense: '),write(T),nl,nl,
 			write('What will you do?'),asserta(isBattle),retract(isPlay).	
 
-foundDungeon:-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a Dungeon Boss'),nl,
+foundDungeon:-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a Dungeon'),nl,
 				write('Level: '),write(Y),nl,
 				write('Health: '),write(R),nl,
 				write('Attack: '),write(S),nl,
@@ -60,11 +60,13 @@ cekDead(X):-	X=<0,!,
 				enemyExp(Y),retract(isBattle),asserta(isPlay),
 				write('You earn '),
 				write(Y),write(' EXP'),
-				upExp(Y),theMusuh(A),cekQuest(A),
-				!.
+				upExp(Y),theMusuh(A),cekBoss(A),cekQuest(A),!.
 
 cekDead(X):-	X>0,!,random(1,5,Y),
 				enemyTurn(Y),!.
+
+cekBoss(A):-	A=='boss',tampilanSelamat,!.
+cekBoss(A):-	A\=='boss',!.
 
 cekQuest(X):-	adaQuest,X=='slime',
 				enemy(A,B,C),D is A+1,
@@ -75,7 +77,7 @@ cekQuest(X):-	adaQuest,X=='goblin',
 cekQuest(X):-	adaQuest,X=='wolf',
 				enemy(A,B,C),D is C+1,
 				asserta(enemy(A,B,D)),isOver,!.
-
+cekQuest(X):-	noQuest,!.
 
 attack:-	isBattle,attack(X),attInv(A),
 			enemyDfs(Y),
@@ -162,3 +164,16 @@ showDead:-	nl,
 			write('           * ****    * ****       ,*P    ****     ,*P           * ****        ,**   * **** *  ****         * ****        ,**      '),nl,
 			write('           * ****      ****     ,**      ****   ,d*P            * ****    ,o**P     * **** *  ****         * ****    ,o**P        '),nl,
 			write('           * ****        *******P          Y*****P              * *********P        * **** *  ************ * *********P           '),nl,nl,nl,nl.
+		
+
+tampilanSelamat:-
+
+	nl,nl,nl,nl,nl,
+	write('     ******   *******  **    **  ******   ********     ***    ******** **     ** **          ***    ******** ****  *******  **    **  ******      '),nl,
+	write('    **    ** **     ** ***   ** **    **  **     **   ** **      **    **     ** **         ** **      **     **  **     ** ***   ** **    **     '),nl,
+	write('    **       **     ** ****  ** **        **     **  **   **     **    **     ** **        **   **     **     **  **     ** ****  ** **           '),nl,
+	write('    **       **     ** ** ** ** **   **** ********  **     **    **    **     ** **       **     **    **     **  **     ** ** ** **  ******      '),nl,
+	write('    **       **     ** **  **** **    **  **   **   *********    **    **     ** **       *********    **     **  **     ** **  ****       **     '),nl,
+	write('    **    ** **     ** **   *** **    **  **    **  **     **    **    **     ** **       **     **    **     **  **     ** **   *** **    **     '),nl,
+	write('     ******   *******  **    **  ******   **     ** **     **    **     *******  ******** **     **    **    ****  *******  **    **  ******      '),nl,nl,nl.
+	
