@@ -1,6 +1,6 @@
 :- dynamic(panjangMap/1).
 :- dynamic(lebarMap/1).
-:- dynamic(musuh/2).    %musuh(nama,[X,Y])
+:- dynamic(musuh/2).    
 :- dynamic(battle/1).
 :- dynamic(banyakMusuh/1).
 :- dynamic(storePosition/1).
@@ -13,140 +13,144 @@ noMap.
 
 /*		MOVEMENT		*/
 /*	W 	*/
-w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isTopBorder(A,Y),!.
-w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
+w 	:- 	playerPosition([X,Y]), A is X+1, isTopBorder(A,Y),!.
+w 	:- 	playerPosition([X,Y]), A is X+1, isDungeonPosition(A,Y),
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),nl,
-		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		write('-->>> You face Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),
+w 	:- 	playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),
+		write('You entered the store.'),nl,
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
+w 	:- 	playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),getQuest,
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y),
+w 	:- 	playerPosition([X,Y]), A is X+1, isEnemyPosition(A,Y), 
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
 		musuh(C,[A,B]),
-		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
+		write('-->>> You found a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-w 	:- 	isPlay,playerPosition([X,Y]), 
+w 	:- 	playerPosition([X,Y]), write('You moved north.'),nl,
 		A is X+1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	A 	*/
-a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isLeftBorder(X,B),!.
-a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isLeftBorder(X,B),!.
+a 	:- 	playerPosition([X,Y]), B is Y+1, isDungeonPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		write('-->>> You face Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isStorePosition(X,B),
+		write('You entered the store.'),nl,
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
+a 	:- 	playerPosition([X,Y]), B is Y+1, isQuestPosition(X,B),getQuest,
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-a 	:- 	isPlay,playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
+a 	:- 	playerPosition([X,Y]), B is Y+1, isEnemyPosition(X,B),
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
 		musuh(C,[A,B]),
-		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
+		write('-->>> You found a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-a 	:- 	isPlay,playerPosition([X,Y]), 
+a 	:- 	playerPosition([X,Y]), write('You moved west.'),nl,
 		B is Y+1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	S 	*/
-s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isBottomBorder(A,Y),!.
-s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
+s 	:- 	playerPosition([X,Y]), A is X-1, isBottomBorder(A,Y),!.
+s 	:- 	playerPosition([X,Y]), A is X-1, isDungeonPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		write('-->>> You face Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),
+s 	:- 	playerPosition([X,Y]), A is X-1, isStorePosition(A,Y),
+		write('You entered the store.'),nl,
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
+s 	:- 	playerPosition([X,Y]), A is X-1, isQuestPosition(A,Y),getQuest,
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-s 	:- 	isPlay,playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
+s 	:- 	playerPosition([X,Y]), A is X-1, isEnemyPosition(A,Y),
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
 		musuh(C,[A,B]),
-		write('-->>> There is a '),write(C),nl,nl,asserta(theMusuh(C)),
+		write('-->>> You found a '),write(C),nl,nl,asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-s 	:- 	isPlay,playerPosition([X,Y]), 
+s 	:- 	playerPosition([X,Y]), write('You moved south.'),nl,
 		A is X-1, 
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
 
 /*	D 	*/
-d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isRightBorder(X,B),!.
-d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isRightBorder(X,B),!.
+d 	:- 	playerPosition([X,Y]), B is Y-1, isDungeonPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		write('-->>> You\'ve entered Dungeon Boss <<<--'),nl,nl,
+		write('-->>> You face Dungeon Boss <<<--'),nl,nl,
 		foundDungeon,statusEnemy(boss),nl,nl,
 		write('-->>> attack / run '),!.
-d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isStorePosition(X,B),asserta(getStore),
+		write('You entered the store.'),nl,
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
+d 	:- 	playerPosition([X,Y]), B is Y-1, isQuestPosition(X,B),getQuest,
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),!.
-d 	:- 	isPlay,playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
+d 	:- 	playerPosition([X,Y]), B is Y-1, isEnemyPosition(X,B),
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
 		musuh(C,[A,B]),
-		write('-->>> There is a '),write(C),nl,nl, asserta(theMusuh(C)),
+		write('-->>> You found a '),write(C),nl,nl, asserta(theMusuh(C)),
 		statusEnemy(C),found(C),nl,nl,
 		write('-->>> attack / run '),!.
-d 	:- 	isPlay,playerPosition([X,Y]), 
+d 	:- 	playerPosition([X,Y]), write('You moved east.'),nl,
 		B is Y-1, 
 		A = X, 
 		retract(playerPosition([X,Y])),
@@ -176,30 +180,29 @@ store  :-	dungeonPosition([X,Y]),
 			random(1,Lebar,Lbr),
 			trialForStore(Pjg,Lbr,X,Y),!.
 
-trialForStore(X1,Y1,X2,Y2) :- X1 =:= X2,
-        Y1 =:= Y2,
-        panjangMap(Panjang),
-        lebarMap(Lebar),
-        random(1,Panjang,Pjg),
-        random(1,Lebar,Lbr),
-        trialForStore(Pjg,Lbr,X2,Y2).
+trialForStore(X1,Y1,X2,Y2) :-	X1 =:= X2,
+								Y1 =:= Y2,
+								panjangMap(Panjang),
+								lebarMap(Lebar),
+								random(1,Panjang,Pjg),
+								random(1,Lebar,Lbr),
+								trialForStore(Pjg,Lbr,X2,Y2).
 
-trialForStore(X1,Y1,_X2,_Y2) :- 
-        asserta(storePosition([X1,Y1])).
+trialForStore(X1,Y1,_X2,_Y2) :- asserta(storePosition([X1,Y1])).
 
-isStorePosition(X,Y) :- storePosition([X1,Y1]),
-       X=:=X1,
-       Y=:=Y1,!.
+isStorePosition(X,Y) :-		storePosition([X1,Y1]),
+						   X=:=X1,
+						   Y=:=Y1,!.
 
 
 /* QUEST */
-questP  :- storePosition([X2,Y2]),
-   dungeonPosition([X1,Y1]),
-   panjangMap(Panjang),
-   lebarMap(Lebar),
-   random(1,Panjang,Pjg),
-   random(1,Lebar,Lbr),
-   trialForQuest(Pjg,Lbr,X1,Y1,X2,Y2),!.
+questP  :-	storePosition([X2,Y2]),
+			dungeonPosition([X1,Y1]),
+			panjangMap(Panjang),
+			lebarMap(Lebar),
+			random(1,Panjang,Pjg),
+			random(1,Lebar,Lbr),
+			trialForQuest(Pjg,Lbr,X1,Y1,X2,Y2),!.
 
 
 trialForQuest(X,Y,X1,Y1,_A,_B) :- 
@@ -225,9 +228,9 @@ trialForQuest(X,Y,_X1,_Y1,_X2,_Y2) :-
 
 
 
-isQuestPosition(X,Y) :-  questPosition([X1,Y1]),
-       X=:=X1,
-       Y=:=Y1,!.
+isQuestPosition(X,Y) :-		questPosition([X1,Y1]),
+							X=:=X1,
+							Y=:=Y1,!.
 
 
 /* PLAYER  */
@@ -271,9 +274,9 @@ triaForPlayer(X,Y,_X1,_Y1,_X2,_Y2,_X3,_Y3) :-
            asserta(playerPosition([X,Y])).
 
 
-isPlayerPosition(X,Y) :-  playerPosition([X1,Y1]),
-       X=:=X1,
-       Y=:=Y1,!.
+isPlayerPosition(X,Y) :-	playerPosition([X1,Y1]),
+							X=:=X1,
+							Y=:=Y1,!.
 
 
 /*			BUAT MUSUH 			*/
@@ -575,12 +578,12 @@ mapAwal:-isPlay, noMap,!,retract(noMap),
 map:-	isPlay,
 		describeMap1,!.
 
-teleportP	:- isPlay,hapusPlayer,player.
-teleportM	:-	isPlay, hapus,randomMap,dungeon,store,questP,player,makeMusuhAwal.
+teleport:- isPlay,hapusPlayer,player.
 teleportS	:-	isPlay, 
 				hapusPlayer,
-				storePosition([X1,Y1]),
-				asserta(playerPosition([X1,Y1])).
+				storePosition([X1,Y1]), 
+				asserta(playerPosition([X1,Y1])),
+				write('You entered the store.'),nl.
 teleportQ	:-	isPlay,
 				hapusPlayer,
 				questPosition([X1,Y1]),

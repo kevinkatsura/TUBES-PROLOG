@@ -83,9 +83,9 @@ beliHPotion:-	amount(A), A<100, nl,
 /*Menampilkan hasil gacha dan memperbaharui inventory*/
 items(X):-	X=:=1, nl,write('You get an Iron Armor.'),nl,
 			count('Iron Armor',Y),Z is Y+1,asserta(count('Iron Armor',Z)),upDefInv(25),!.
-items(X):-	X=:=2,nl, write('You get an Iron Helmet.'),nl,
+items(X):-	X=:=2,nl,write('You get an Iron Helmet.'),nl,
 			count('Iron Helmet',Y),Z is Y+1,asserta(count('Iron Helmet',Z)),upDefInv(10),!.
-items(X):-	X=:=3, write('You get an Iron Shield.'),nl,
+items(X):-	X=:=3,nl,write('You get an Iron Shield.'),nl,
 			count('Iron Shield',Y),Z is Y+1,asserta(count('Iron Shield',Z)),upDefInv(15),!.
 items(X):-	X=:=4,job('swordsman'),nl,
 			write('You get an Excalibur (Swordsman).'),nl,
@@ -126,13 +126,13 @@ items(X):-	X=:=6,job('archer'),nl,
 
 /*Keluar dari shop*/
 exitShop:-	isShop,!,retract(isShop),nl,write('Thanks for coming.'),nl, 
-			asserta(isPlay),w.
+			asserta(isPlay),s.
 
 /*Menampilkan inventory ke layar*/
 inventory:- isShop,!,nl,writeInvent,!.
 inventory:- isPlay,!,nl,writeInvent,!.
 
-writeInvent:-	nl,write('Your inventory:'),nl,
+writeInvent:-	write('Your inventory:'),nl,nl,
 				invent('Wooden Sword (Swordsman)'),
 				invent('Wooden Bow (Archer)'),
 				invent('Magic Book (Sorcerer)'),
