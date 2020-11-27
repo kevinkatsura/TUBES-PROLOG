@@ -63,7 +63,7 @@ cekOver(X,Y,Z,S,G,W):-	X>=S,Y>=G,Z>=W,
 						nl,nl,write('Well done!! Your quest is completed.'),nl,
 						Exp is (20*S+30*G+40*W), Gold is (150*S+200*G+250*W),
 						nl,write('Your reward: '),nl,
-						write(Exp),write(' EXP + '),write(Gold),write(' Gold'),nl,
+						write(Exp),write(' EXP + '),write(Gold),write(' Gold'),nl, asserta(enemy(0,0,0)),
 						upGold(Gold),upExp(Exp),
 						retract(adaQuest),asserta(noQuest),!.
 cekOver(_X,_Y,_Z,_S,_G,_W):- write(''),!.

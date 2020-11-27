@@ -31,7 +31,7 @@ w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isStorePosition(A,Y),
 		B = Y, 
 		retract(playerPosition([X,Y])),
 		asserta(playerPosition([A,B])),
-		nl, write('~~~~~~~ You\'ve moved to North ~~~~~~~'),nl,!.
+		nl,nl,!.
 w 	:- 	isPlay,playerPosition([X,Y]), A is X+1, isQuestPosition(A,Y),
 		nl, write('~~~~~~~ You move to North ~~~~~~~'),nl,
 		getQuest,
