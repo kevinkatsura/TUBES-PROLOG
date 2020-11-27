@@ -16,7 +16,7 @@ found(X):-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a '),wr
 			write('Defense: '),write(T),nl,nl,
 			write('What will you do?'),asserta(isBattle),retract(isPlay).	
 
-foundDungeon:-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a dungeon'),nl,
+foundDungeon:-	levelM(Y),enemyHP(R),enemyAtk(S),enemyDfs(T),write('You found a Dungeon Boss'),nl,
 				write('Level: '),write(Y),nl,
 				write('Health: '),write(R),nl,
 				write('Attack: '),write(S),nl,

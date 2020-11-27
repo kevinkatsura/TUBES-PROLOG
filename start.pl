@@ -93,11 +93,11 @@ play   :-   isStart,!,noPlay,!,
             write('>'),read(X),nl,Y is X,playuser(Y).
 
 /* Menampilkan output sesuai input user */
-playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
+playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,nl,
                 asserta(job('swordsman')),!. 
-playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
+playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,nl,
                 asserta(job('archer')),!.
-playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
+playuser(X) :- X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,nl,
                 asserta(job('sorcerer')),!. 
 
 /* HELP */
