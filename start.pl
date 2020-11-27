@@ -95,32 +95,23 @@ play   :-   isStart,!,noPlay,!,
 /* Menampilkan output sesuai input user */
 playuser(X) :-  X=:=1, write('You choose swordsman, let\'s explore the world'),nl,
 		asserta(job('swordsman')),!,
-		write('Continue the previous game?'),nl,
-		write('1. continue'),nl,
-		write('2. new game'),nl,
-		write('**==new game will delete the previous game==**'),nl,
-		write('>'),read(A),nl,Y is A,check1(Y).
+		write('Type c. to continue, n. to  start a new game.'),nl,
+		write('>'),read(A),nl,check1(A).
 playuser(X) :-  X=:=2, write('You choose archer, let\'s explore the world'),nl,
                 asserta(job('archer')),!,
-		write('Continue the previous game?'),nl,
-		write('1. continue'),nl,
-		write('2. new game'),nl,
-		write('**==new game will delete the previous game==**'),nl,
-		write('>'),read(A),nl,Y is A,check2(Y).
+		write('Type c. to continue, n. to  start a new game.'),nl,
+		write('>'),read(A),nl,check2(A).
 playuser(X) :-  X=:=3, write('You choose sorcerer, let\'s explore the world'),nl,
                 asserta(job('sorcerer')),!,
-		write('Continue the previous game?'),nl,
-		write('1. continue'),nl,
-		write('2. new game'),nl,
-		write('**==new game will delete the previous game==**'),nl,
-		write('>'),read(A),nl,Y is A,check3(Y). 
+		write('Type c. to continue, n. to  start a new game.'),nl,
+		write('>'),read(A),nl,check3(A). 
 
-check1(X):-      X=:=1,load_game('data1continue.txt'),status,!.
-check1(X):-      X=:=2,load_game('data1newgame.txt'),status,!.
-check2(X):-      X=:=1,load_game('data2continue.txt'),status,!.
-check2(X):-      X=:=2,load_game('data2newgame.txt'),status,!.
-check3(X):-      X=:=1,load_game('data3continue.txt'),status,!.
-check3(X):-      X=:=2,load_game('data3newgame.txt'),status,!.
+check1(X):-      X=='c',load_game('data1continue.txt'),status,!.
+check1(X):-      X=='n',load_game('data1newgame.txt'),status,!.
+check2(X):-      X=='c',load_game('data2continue.txt'),status,!.
+check2(X):-      X=='n',load_game('data2newgame.txt'),status,!.
+check3(X):-      X=='c',load_game('data3continue.txt'),status,!.
+check3(X):-      X=='n',load_game('data3newgame.txt'),status,!.
 
 /* HELP */
 helpPlayGuide   :-  write('%'),
@@ -172,6 +163,12 @@ save_game:- job('archer'),save_game('data2continue.txt').
 save_game:- job('sorcerer'),save_game('data3continue.txt').
 
 
-quit:- 	nl,save_game,nl,
-	write('Thank you for playing, see you!! ^_^ '),nl,halt.
-
+quit:-  nl, write('Would you like to save your progress (y/n)? '),nl, 
+        write('>'),read(I),nl,cekQuit(I).
+cekQuit(I):-    I=='y',save_game,nl,
+             	write(' >>> Thank you for playing, see you!! :) '),nl,sleep(1),
+                write(' >>> Program will close in ....'),sleep(1),nl, write(' >>> 3 '),sleep(1),nl,write(' >>> 2 '),sleep(1),nl,write(' >>> 1'),
+                halt,!.
+cekQuit(I):-    I=='n', write(' >>> Thank you for playing, see you!! :) '),nl,sleep(1),
+                write(' >>> Program will close in ....'),sleep(1),nl, write(' >>> 3 '),sleep(1),nl,write(' >>> 2 '),sleep(1),nl,write(' >>> 1'),
+                halt,!.
