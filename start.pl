@@ -139,6 +139,7 @@ help15  :-  tab(6),write('% 15. seeEnemy          : gunakan perintah \'seeEnemy.
 
 
 helpTambahan    :-  corner(189),
+                    legenda1,
                     help1,nl,
                     help2,nl,
                     help3,nl,
